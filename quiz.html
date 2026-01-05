@@ -722,4 +722,16 @@
 
         function retryQuiz() {
             document.getElementById('quizForm').reset();
-            document.queryS
+            document.querySelectorAll('.question-container').forEach(container => {
+                container.classList.remove('correct', 'incorrect');
+            });
+            document.querySelectorAll('.feedback').forEach(feedback => {
+                feedback.classList.remove('show', 'correct', 'incorrect');
+                feedback.textContent = '';
+            });
+            document.getElementById('results').classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
