@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Self-Love Course</title>
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="icon">💖</span>
+                <div>
+                    <h1>Self-Love Course</h1>
+                    <p class="user-email" id="userEmail">Loading...</p>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <!-- Access Course Content Button -->
+                <a href="course.html?module=1" style="padding: 12px 24px; background: #ff6b9d; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                    📚 Course Content
+                </a>
+                
+                <!-- Take Quiz Button -->
+                <a href="quiz.html" style="padding: 12px 24px; background: #c44569; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                    📝 Take Quiz
+                </a>
+                
+                <!-- Sign Out Button -->
+                <button class="sign-out-btn" id="signOutBtn">Sign Out</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="dashboard">
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <h2>Your Self-Love Journey</h2>
+            <p id="progressText">You've completed 0 of 8 modules</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+        </div>
+        
+        <!-- Modules Grid -->
+        <div class="modules-grid" id="modulesGrid">
+            <div class="loading">Loading your course...</div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <!-- Your Firebase Config -->
+    <script src="./firebase-config.js"></script>
+    <script src="./dashboard.js"></script>
+</body>
+</html>
