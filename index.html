@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Love Course - Begin Your Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+        .logo-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: white;
+            color: #ff6b9d;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid white;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+        .features {
+            padding: 80px 20px;
+            background: white;
+            color: #333;
+        }
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .features h2 {
+            text-align: center;
+            font-size: 42px;
+            color: #ff6b9d;
+            margin-bottom: 20px;
+        }
+        .features-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 60px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        .feature-card {
+            padding: 30px;
+            background: linear-gradient(135deg, #fff5f8, #fff);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            color: #ff6b9d;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .modules-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+        }
+        .modules-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .modules-section h2 {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        .modules-section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 60px;
+            opacity: 0.95;
+        }
+        .modules-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .module-item {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        .module-number {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        .module-item h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .module-item p {
+            font-size: 15px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+        .footer {
+            padding: 40px 20px;
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+        }
+        .footer p {
+            margin-bottom: 10px;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="logo-icon">💖</div>
+            <h1>Self-Love Course</h1>
+            <p>Transform your relationship with yourself through 8 powerful modules</p>
+            <div class="cta-buttons">
+                <a href="auth.html" class="btn btn-primary">Start Your Journey</a>
+                <a href="#features" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2>Why This Course?</h2>
+            <p class="features-subtitle">Everything you need for your self-love journey</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>8 Comprehensive Modules</h3>
+                    <p>From understanding self-love to living authentically, each module builds on the last.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>Self-Paced Learning</h3>
+                    <p>Learn at your own rhythm. Take your time to integrate each lesson.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Certificate of Completion</h3>
+                    <p>Earn a beautiful certificate when you complete all modules and pass the quiz.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Track Your Progress</h3>
+                    <p>See how far you've come with built-in progress tracking.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💝</div>
+                    <h3>Lifetime Access</h3>
+                    <p>Return to the course materials whenever you need a reminder or refresh.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3>Practical Exercises</h3>
+                    <p>Apply what you learn with journaling prompts and actionable practices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules-section">
+        <div class="modules-container">
+            <h2>What You'll Learn</h2>
+            <p class="modules-section-subtitle">8 transformative modules to guide your journey</p>
+            
+            <div class="modules-list">
+                <div class="module-item">
+                    <div class="module-number">MODULE 1</div>
+                    <h4>Understanding Self-Love</h4>
+                    <p>What self-love really means and why it matters</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 2</div>
+                    <h4>Self-Awareness & Acceptance</h4>
+                    <p>Getting to know and accept yourself deeply</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 3</div>
+                    <h4>Inner Child Healing</h4>
+                    <p>Connecting with and healing your inner child</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 4</div>
+                    <h4>Positive Self-Talk</h4>
+                    <p>Reframing negative thoughts and beliefs</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 5</div>
+                    <h4>Setting Boundaries</h4>
+                    <p>Learning to say no and protect your energy</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 6</div>
+                    <h4>Self-Care Rituals</h4>
+                    <p>Creating sustainable self-care practices</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 7</div>
+                    <h4>Self-Compassion</h4>
+                    <p>Being kind to yourself in all circumstances</p>
+                </div>
+                
+                <div class="module-item">
+                    <div class="module-number">MODULE 8</div>
+                    <h4>Authentic Living</h4>
+                    <p>Embracing and expressing your true self</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Self-Love Course</strong></p>
+        <p>By Eclipsoinati</p>
+        <p style="margin-top: 20px; opacity: 0.7;">&copy; 2026 All rights reserved</p>
+    </footer>
+</body>
+</html>
