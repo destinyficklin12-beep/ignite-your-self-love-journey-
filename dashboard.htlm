@@ -254,13 +254,13 @@
     <script>
         // Firebase Configuration
         const firebaseConfig = {
-    apiKey: "AIzaSyDVQihAQNtijvyEUsRxtAN3MaYTWb6FXPcT",
-    authDomain: "self-love-course.firebaseapp.com",
-    projectId: "self-love-course",
-    storageBucket: "self-love-course.firebasestorage.app",
-    messagingSenderId: "115196735828",
-    appId: "1:115196735828:web:6f1d29db449b795489d8c1",
-    measurementId: "G-JFKWPZEJRM"
+  apiKey: "AIzaSyDVQihAQNtijvyEUsRxtAN3MaYTWb6FXPcT",
+  authDomain: "self-love-course.firebaseapp.com",
+  projectId: "self-love-course",
+  storageBucket: "self-love-course.firebasestorage.app",
+  messagingSenderId: "115196735828",
+  appId: "1:115196735828:web:6f1d29db449b795489d8c1",
+  measurementId: "G-JFKWPZEJRM"
 };
 
         // Initialize Firebase
