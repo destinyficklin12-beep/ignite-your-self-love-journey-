@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .status {
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        pre {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔥 Firebase Connection Test</h1>
+    <div id="status" class="status info">Testing Firebase connection...</div>
+    <div id="details"></div>
+
+    <!-- Firebase SDK v9 (Compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const detailsDiv = document.getElementById('details');
+
+        // Your Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDVQihAQNtijvyEUsRxtAN3MaYTWb6FXPcT",
+            authDomain: "self-love-course.firebaseapp.com",
+            projectId: "self-love-course",
+            storageBucket: "self-love-course.firebasestorage.app",
+            messagingSenderId: "115196735828",
+            appId: "1:115196735828:web:6f1d29db449b795489d8c1",
+            measurementId: "G-JFKWPZEJRM"
+        };
+
+        function showStatus(message, type) {
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type}`;
+        }
+
+        function showDetails(content) {
+            detailsDiv.innerHTML = `<pre>${content}</pre>`;
+        }
+
+        try {
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            showStatus('✅ Firebase initialized successfully!', 'success');
+            
+            const auth = firebase.auth();
+            
+            showDetails(`Firebase App Name: ${firebase.app().name}
+Project ID: ${firebaseConfig.projectId}
+Auth Domain: ${firebaseConfig.authDomain}
+
+Status: Firebase is properly configured!
+
+Next Step: Check Firebase Console to enable Email/Password authentication.`);
+
+            // Test auth state
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    showDetails(`User is logged in: ${user.email}`);
+                } else {
+                    const currentDetails = detailsDiv.querySelector('pre').textContent;
+                    showDetails(currentDetails + '\n\nNo user currently logged in (this is normal for a fresh setup).');
+                }
+            });
+
+        } catch (error) {
+            showStatus('❌ Firebase initialization failed', 'error');
+            showDetails(`Error: ${error.message}
+
+Error Code: ${error.code}
+
+This usually means:
+1. The API key is incorrect
+2. The Firebase project doesn't exist
+3. Network/connectivity issues
+
+Please verify your Firebase configuration in the Firebase Console.`);
+            console.error('Full error:', error);
+        }
+    </script>
+</body>
+</html>
