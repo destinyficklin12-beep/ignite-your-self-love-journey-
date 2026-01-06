@@ -171,25 +171,28 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // Firebase Configuration
+        // NEW Firebase Configuration
         const firebaseConfig = {
-  apiKey: "AIzaSyDVQihAQNtijvyEUsRxtAN3MaYTWb6FXPcT",
-  authDomain: "self-love-course.firebaseapp.com",
-  projectId: "self-love-course",
-  storageBucket: "self-love-course.firebasestorage.app",
-  messagingSenderId: "115196735828",
-  appId: "1:115196735828:web:6f1d29db449b795489d8c1",
-  measurementId: "G-JFKWPZEJRM"
-};
+            apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
+            authDomain: "self-love-course.firebaseapp.com",
+            projectId: "self-love-course",
+            storageBucket: "self-love-course.firebasestorage.app",
+            messagingSenderId: "115196735828",
+            appId: "1:115196735828:web:426f660bd8b034fd89d8c1",
+            measurementId: "G-WTPVKYL5X0"
+        };
 
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
 
+        console.log('Firebase initialized successfully!');
+
         // Check if user is already logged in
         auth.onAuthStateChanged((user) => {
             if (user) {
+                console.log('User already logged in, redirecting to dashboard');
                 window.location.href = 'dashboard.html';
             }
         });
@@ -230,7 +233,10 @@
             try {
                 const userCredential = await auth.signInWithEmailAndPassword(email, password);
                 console.log('User logged in:', userCredential.user.email);
-                window.location.href = 'dashboard.html';
+                showSuccess('Login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1000);
             } catch (error) {
                 console.error('Login error:', error);
                 showError(getErrorMessage(error.code));
