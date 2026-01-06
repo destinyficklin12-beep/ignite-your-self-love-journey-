@@ -5,7 +5,6 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // Firebase Configuration for Self-Love Course
 const firebaseConfig = {
   apiKey: "YOUR_NEW_API_KEY",
@@ -13,7 +12,8 @@ const firebaseConfig = {
   projectId: "self-love-course",
   storageBucket: "self-love-course.appspot.com",
   messagingSenderId: "YOUR_NEW_SENDER_ID",
-  appId: "YOUR_NEW_APP_ID"
+  appId: "YOUR_NEW_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID" // Optional
 };
 
 // Initialize Firebase
