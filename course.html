@@ -3,288 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Content - Self-Love</title>
+    <title>Self-Love Journey Course</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f0f0f0;
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .course-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo h2 {
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .course-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .course-header h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .course-header p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .progress-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .progress-track {
+            background: #e0e0e0;
+            height: 20px;
+            border-radius: 10px;
             overflow: hidden;
         }
-        .header {
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* Module Cards */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .module-card {
             background: white;
-            padding: 15px 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .module-card.completed {
+            border: 2px solid #4caf50;
+        }
+
+        .module-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            height: 70px;
+            margin-bottom: 15px;
         }
-        .header-left {
+
+        .module-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 20px;
-        }
-        .header h2 {
-            color: #ff6b9d;
-            font-size: 20px;
-            font-weight: 300;
-        }
-        .back-btn {
-            padding: 10px 20px;
-            background: #ff6b9d;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: background 0.3s;
-            font-weight: 500;
-        }
-        .back-btn:hover {
-            background: #c44569;
-        }
-        .user-info {
-            color: #666;
-            font-size: 14px;
-        }
-        .loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #ff6b9d;
+            justify-content: center;
+            font-weight: bold;
             font-size: 18px;
         }
-        iframe {
-            width: 100%;
-            height: calc(100vh - 70px);
-            border: none;
-            margin-top: 70px;
+
+        .completion-status {
+            font-size: 24px;
         }
-        
-        /* Enhanced Progress Tracker */
-        .progress-tracker {
-            position: fixed;
-            top: 70px;
-            right: 0;
-            background: white;
-            padding: 20px 25px;
-            border-radius: 12px 0 0 12px;
-            box-shadow: -4px 4px 20px rgba(0,0,0,0.2);
-            z-index: 1001;
-            min-width: 280px;
-            border-left: 4px solid #ff6b9d;
+
+        .module-card h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+            line-height: 1.4;
         }
-        .progress-tracker h4 {
-            color: #ff6b9d;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        .progress-tracker p {
+
+        .module-card p {
             color: #666;
-            font-size: 14px;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
+            line-height: 1.6;
         }
-        .module-info {
-            background: #fff5f8;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            font-size: 13px;
-            color: #ff6b9d;
-            font-weight: 600;
+
+        .module-actions {
+            display: flex;
+            gap: 10px;
         }
-        .module-complete-btn {
+
+        .btn {
+            flex: 1;
             padding: 12px 20px;
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
-            color: white;
             border: none;
             border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            width: 100%;
             transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(255, 107, 157, 0.3);
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
         }
-        .module-complete-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 107, 157, 0.4);
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
         }
-        .module-complete-btn.completed {
-            background: #4caf50;
-            cursor: default;
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
-        .module-complete-btn.completed:hover {
-            transform: none;
-        }
-        .progress-bar-mini {
-            width: 100%;
-            height: 8px;
+
+        .btn-secondary {
             background: #e0e0e0;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 10px 0;
+            color: #666;
         }
-        .progress-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ff6b9d, #c44569);
-            border-radius: 4px;
-            transition: width 0.5s ease;
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .completion-message {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .completion-message h2 {
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .completion-message p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .completion-message button {
+            background: white;
+            color: #4caf50;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .completion-message button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+                padding: 20px;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .course-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-left">
-            <a href="dashboard.html" class="back-btn">← Dashboard</a>
-            <h2>💖 Self-Love Course</h2>
-        </div>
-        <div class="user-info" id="userInfo">Loading...</div>
-    </div>
-    
-    <div class="loading" id="loading">Loading course content...</div>
-    
-    <iframe 
-        id="courseFrame"
-        src="https://your-course-content-url.com"
-        style="display: none;"
-        onload="document.getElementById('loading').style.display='none'; this.style.display='block';">
-    </iframe>
+    <div class="course-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>💖 Self Love Journey</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">← Back to Dashboard</a></li>
+                    <li><a href="quiz.html">Quizzes</a></li>
+                    <li><a href="certificate.html">My Certificates</a></li>
+                    <li><a id="logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
 
-    <!-- Progress Tracker Widget -->
-    <div class="progress-tracker" id="progressTracker" style="display: none;">
-        <h4>📊 Your Progress</h4>
-        <p id="progressText">0 of 8 modules completed</p>
-        <div class="progress-bar-mini">
-            <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
-        </div>
-        <div class="module-info" id="moduleInfo">Current: Module 1</div>
-        <button class="module-complete-btn" id="completeBtn" onclick="markCurrentModuleComplete()">
-            ✓ Mark Module Complete
-        </button>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Course Header -->
+            <header class="course-header">
+                <h1>🌟 Ignite Your Self-Love Journey</h1>
+                <p>Transform your relationship with yourself through 8 powerful modules</p>
+            </header>
+
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <h3>Your Progress</h3>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill">0%</div>
+                </div>
+                <p style="margin-top: 10px; color: #666;">
+                    <span id="completed-count">0</span> of 8 modules completed
+                </p>
+            </div>
+
+            <!-- Modules Grid -->
+            <div class="modules-grid" id="modules-grid">
+                <!-- Modules will be loaded here -->
+            </div>
+
+            <!-- Completion Message -->
+            <div class="completion-message" id="completion-message">
+                <h2>🎉 Congratulations!</h2>
+                <p>You've completed all 8 modules of your Self-Love Journey!</p>
+                <button onclick="window.location.href='certificate.html'">
+                    Get Your Certificate
+                </button>
+            </div>
+        </main>
     </div>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="./firebase-config.js"></script>
-    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
+            authDomain: "self-love-course.firebaseapp.com",
+            projectId: "self-love-course",
+            storageBucket: "self-love-course.firebasestorage.app",
+            messagingSenderId: "115196735828",
+            appId: "1:115196735828:web:426f660bd8b034fd89d8c1",
+            measurementId: "G-WTPVKYL5X0"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Course Modules Data
+        const modules = [
+            {
+                id: 1,
+                title: "Understanding Self-Love",
+                description: "Discover what self-love truly means and why it's essential for your wellbeing and happiness.",
+                url: "https://eclipsoinati.wixsite.com/website/module-1-understanding-self-love",
+                duration: "30-45 min"
+            },
+            {
+                id: 2,
+                title: "Self-Awareness & Acceptance",
+                description: "Learn to recognize your thoughts, emotions, and patterns while embracing who you truly are.",
+                url: "https://eclipsoinati.wixsite.com/website/module-2-self-awareness-acceptance",
+                duration: "30-45 min"
+            },
+            {
+                id: 3,
+                title: "Inner Child Healing",
+                description: "Connect with and heal your inner child to release past wounds and embrace wholeness.",
+                url: "https://eclipsoinati.wixsite.com/website/module-3-inner-child-healing",
+                duration: "30-45 min"
+            },
+            {
+                id: 4,
+                title: "Positive Self-Talk",
+                description: "Transform your inner dialogue and cultivate a supportive, encouraging voice within.",
+                url: "https://eclipsoinati.wixsite.com/website/module-4-positive-self-talk",
+                duration: "30-45 min"
+            },
+            {
+                id: 5,
+                title: "Setting Boundaries",
+                description: "Learn to set healthy boundaries that honor your needs and protect your energy.",
+                url: "https://eclipsoinati.wixsite.com/website/module-5-setting-boundaries",
+                duration: "30-45 min"
+            },
+            {
+                id: 6,
+                title: "Self-Care Rituals",
+                description: "Create sustainable self-care practices that nourish your mind, body, and soul.",
+                url: "https://eclipsoinati.wixsite.com/website/module-6-self-care-rituals",
+                duration: "30-45 min"
+            },
+            {
+                id: 7,
+                title: "Self-Compassion",
+                description: "Develop a kind and understanding relationship with yourself during challenges.",
+                url: "https://eclipsoinati.wixsite.com/website/module-7-self-compassion",
+                duration: "30-45 min"
+            },
+            {
+                id: 8,
+                title: "Authentic Living",
+                description: "Embrace your true self and live authentically aligned with your values and purpose.",
+                url: "https://eclipsoinati.wixsite.com/website/module-8-authentic-living-45-60-min",
+                duration: "45-60 min"
+            }
+        ];
+
         let currentUser = null;
         let completedModules = [];
-        let currentModuleId = 1;
-
-        // Get module ID from URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const moduleParam = urlParams.get('module');
-        if (moduleParam) {
-            currentModuleId = parseInt(moduleParam);
-        }
 
         // Check authentication
         auth.onAuthStateChanged(async (user) => {
-            if (!user) {
+            if (user) {
+                currentUser = user;
+                await loadProgress();
+                renderModules();
+            } else {
                 window.location.href = 'auth.html';
-                return;
             }
-            
-            currentUser = user;
-            document.getElementById('userInfo').textContent = user.displayName || user.email;
-            
-            await loadProgress();
-            document.getElementById('progressTracker').style.display = 'block';
         });
 
         // Load user progress
         async function loadProgress() {
             try {
-                const docRef = db.collection('selfLoveProgress').doc(currentUser.uid);
-                const doc = await docRef.get();
-                
-                if (doc.exists) {
-                    completedModules = doc.data().completedModules || [];
+                const progressDoc = await db.collection('users')
+                    .doc(currentUser.uid)
+                    .collection('progress')
+                    .doc('modules')
+                    .get();
+
+                if (progressDoc.exists) {
+                    completedModules = progressDoc.data().completed || [];
                 } else {
                     completedModules = [];
                 }
-                
-                updateProgressDisplay();
             } catch (error) {
                 console.error('Error loading progress:', error);
+                completedModules = [];
             }
         }
 
-        // Update progress display
-        function updateProgressDisplay() {
-            const completed = completedModules.length;
-            const progressPercent = (completed / 8) * 100;
-            
-            document.getElementById('progressText').textContent = 
-                `${completed} of 8 modules completed`;
-            
-            document.getElementById('progressBarFill').style.width = progressPercent + '%';
-            
-            document.getElementById('moduleInfo').textContent = 
-                `Current: Module ${currentModuleId}`;
-            
-            const btn = document.getElementById('completeBtn');
-            if (completedModules.includes(currentModuleId)) {
-                btn.textContent = '✓ Module ' + currentModuleId + ' Completed';
-                btn.classList.add('completed');
-                btn.disabled = true;
-            } else {
-                btn.textContent = '✓ Mark Module ' + currentModuleId + ' Complete';
-                btn.classList.remove('completed');
-                btn.disabled = false;
-            }
+        // Render modules
+        function renderModules() {
+            const grid = document.getElementById('modules-grid');
+            grid.innerHTML = '';
+
+            modules.forEach(module => {
+                const isCompleted = completedModules.includes(module.id);
+                const card = createModuleCard(module, isCompleted);
+                grid.appendChild(card);
+            });
+
+            updateProgress();
         }
 
-        // Mark current module as complete
-        async function markCurrentModuleComplete() {
-            if (completedModules.includes(currentModuleId)) {
-                return;
-            }
+        // Create module card
+        function createModuleCard(module, isCompleted) {
+            const card = document.createElement('div');
+            card.className = `module-card ${isCompleted ? 'completed' : ''}`;
             
-            if (!confirm('Mark Module ' + currentModuleId + ' as complete?')) {
-                return;
-            }
-            
-            try {
-                completedModules.push(currentModuleId);
+            card.innerHTML = `
+                <div class="module-header">
+                    <div class="module-number">${module.id}</div>
+                    <div class="completion-status">${isCompleted ? '✅' : '⭕'}</div>
+                </div>
+                <h3>${module.title}</h3>
+                <p>${module.description}</p>
+                <p style="color: #999; font-size: 14px; margin-bottom: 15px;">⏱️ ${module.duration}</p>
+                <div class="module-actions">
+                    <a href="${module.url}" target="_blank" class="btn btn-primary">
+                        ${isCompleted ? 'Review Module' : 'Start Module'}
+                    </a>
+                    ${!isCompleted ? `<button class="btn btn-secondary" onclick="markComplete(${module.id})">Mark Complete</button>` : ''}
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Mark module as complete
+        window.markComplete = async function(moduleId) {
+            if (!completedModules.includes(moduleId)) {
+                completedModules.push(moduleId);
                 
-                await db.collection('selfLoveProgress').doc(currentUser.uid).set({
-                    completedModules: completedModules,
-                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                
-                updateProgressDisplay();
-                
-                alert('🎉 Congratulations! Module ' + currentModuleId + ' completed!');
-                
-                if (completedModules.length === 8) {
-                    if (confirm('🎊 Amazing! You completed ALL modules! View your certificate?')) {
-                        window.location.href = 'certificate.html';
+                try {
+                    await db.collection('users')
+                        .doc(currentUser.uid)
+                        .collection('progress')
+                        .doc('modules')
+                        .set({
+                            completed: completedModules,
+                            lastUpdated: new Date()
+                        });
+
+                    renderModules();
+                    
+                    if (completedModules.length === 8) {
+                        document.getElementById('completion-message').style.display = 'block';
                     }
-                } else {
-                    if (confirm('Great work! Ready to continue to the next module?')) {
-                        window.location.href = 'dashboard.html';
-                    }
+                } catch (error) {
+                    console.error('Error saving progress:', error);
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error saving progress. Please try again.');
             }
+        };
+
+        // Update progress bar
+        function updateProgress() {
+            const percentage = (completedModules.length / 8) * 100;
+            const progressFill = document.getElementById('progress-fill');
+            const completedCount = document.getElementById('completed-count');
+
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = Math.round(percentage) + '%';
+            completedCount.textContent = completedModules.length;
         }
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', async () => {
+            try {
+                await auth.signOut();
+                window.location.href = 'auth.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+            }
+        });
     </script>
 </body>
 </html>
