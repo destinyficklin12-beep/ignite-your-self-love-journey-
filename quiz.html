@@ -3,735 +3,761 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Final Quiz - Self-Love Course</title>
+    <title>Module Quiz - Self Love Course</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        .container {
+
+        .quiz-container {
             max-width: 800px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            padding: 40px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
         }
-        .header {
+
+        .quiz-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
             text-align: center;
-            margin-bottom: 40px;
         }
-        .header h1 {
-            color: #ff6b9d;
-            font-size: 32px;
+
+        .quiz-header h1 {
+            font-size: 28px;
             margin-bottom: 10px;
         }
-        .header p {
-            color: #666;
+
+        .quiz-header p {
             font-size: 16px;
+            opacity: 0.9;
         }
-        .quiz-info {
-            background: linear-gradient(135deg, #fff5f8, #fff);
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .quiz-content {
+            padding: 40px;
+        }
+
+        .module-selector {
+            margin-bottom: 30px;
+        }
+
+        .module-selector h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .module-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
             padding: 20px;
             border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 4px solid #ff6b9d;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
-        .quiz-info h3 {
-            color: #ff6b9d;
-            margin-bottom: 10px;
+
+        .module-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
         }
-        .quiz-info ul {
-            color: #666;
-            margin-left: 20px;
+
+        .module-btn.completed::after {
+            content: '✅';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 20px;
         }
-        .quiz-info li {
-            margin: 5px 0;
+
+        .quiz-section {
+            display: none;
         }
+
+        .quiz-section.active {
+            display: block;
+        }
+
         .question-container {
             margin-bottom: 30px;
             padding: 25px;
-            background: #fff5f8;
+            background: #f8f9fa;
             border-radius: 12px;
-            border: 2px solid transparent;
-            transition: all 0.3s;
+            border-left: 4px solid #667eea;
         }
-        .question-container.correct {
-            border-color: #4caf50;
-            background: #f1f8f4;
-        }
-        .question-container.incorrect {
-            border-color: #f44336;
-            background: #fef5f5;
-        }
+
         .question-number {
-            display: inline-block;
-            background: #ff6b9d;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            color: #667eea;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
-        .module-tag {
-            display: inline-block;
-            background: #c44569;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            margin-left: 10px;
-        }
+
         .question-text {
             font-size: 18px;
-            font-weight: 600;
             color: #333;
             margin-bottom: 20px;
+            line-height: 1.6;
         }
+
         .options {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
+
         .option {
-            padding: 15px 20px;
             background: white;
+            padding: 15px 20px;
             border: 2px solid #e0e0e0;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 12px;
         }
+
         .option:hover {
-            border-color: #ff6b9d;
-            background: #fff5f8;
+            border-color: #667eea;
+            background: #f0f4ff;
         }
+
         .option input[type="radio"] {
+            margin-right: 12px;
             width: 20px;
             height: 20px;
             cursor: pointer;
         }
+
         .option label {
             cursor: pointer;
             flex: 1;
-            font-size: 15px;
-            color: #333;
+            font-size: 16px;
         }
-        .submit-section {
-            margin-top: 40px;
-            text-align: center;
-        }
-        .submit-btn {
-            padding: 15px 50px;
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
-        }
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
-        }
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .results {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, #fff5f8, #fff);
-            border-radius: 15px;
-            margin-top: 30px;
-        }
-        .results.show {
-            display: block;
-        }
-        .results h2 {
-            color: #ff6b9d;
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-        .score-circle {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ff6b9d, #c44569);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
-        }
-        .score-text {
-            color: white;
-            font-size: 48px;
-            font-weight: bold;
-        }
-        .result-message {
-            font-size: 18px;
-            color: #666;
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-        .result-actions {
+
+        .quiz-actions {
             display: flex;
             gap: 15px;
             justify-content: center;
             margin-top: 30px;
         }
-        .result-btn {
-            padding: 12px 30px;
+
+        .btn {
+            padding: 15px 40px;
             border: none;
             border-radius: 10px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
         }
-        .certificate-btn {
-            background: #4caf50;
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        .certificate-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
-        .retry-btn {
-            background: #ff6b9d;
-            color: white;
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
         }
-        .retry-btn:hover {
-            background: #c44569;
-            transform: translateY(-2px);
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
         }
-        .dashboard-btn {
-            background: #666;
-            color: white;
-        }
-        .dashboard-btn:hover {
-            background: #555;
-            transform: translateY(-2px);
-        }
-        .feedback {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
+
+        .results-section {
             display: none;
+            text-align: center;
+            padding: 40px;
         }
-        .feedback.show {
+
+        .results-section.active {
             display: block;
         }
-        .feedback.correct {
-            background: #e8f5e9;
-            color: #2e7d32;
-            border: 1px solid #4caf50;
+
+        .score-display {
+            font-size: 72px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
         }
-        .feedback.incorrect {
-            background: #ffebee;
-            color: #c62828;
-            border: 1px solid #f44336;
+
+        .score-message {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .pass {
+            color: #4caf50;
+        }
+
+        .fail {
+            color: #f44336;
+        }
+
+        .feedback {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .feedback-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .feedback-item.correct {
+            border-left: 4px solid #4caf50;
+        }
+
+        .feedback-item.incorrect {
+            border-left: 4px solid #f44336;
+        }
+
+        @media (max-width: 600px) {
+            .quiz-content {
+                padding: 20px;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-header h1 {
+                font-size: 22px;
+            }
+
+            .back-button {
+                position: static;
+                margin-bottom: 20px;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>💖 Final Assessment Quiz</h1>
-            <p>Test your self-love knowledge from all 8 modules</p>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <button class="back-button" onclick="window.location.href='course.html'">← Back to Course</button>
+            <h1>📝 Module Quizzes</h1>
+            <p>Test your knowledge and track your progress</p>
         </div>
 
-        <div class="quiz-info">
-            <h3>📋 Quiz Instructions</h3>
-            <ul>
-                <li>This quiz covers all 8 modules of the Self-Love Course</li>
-                <li>You need to score <strong>80% or higher</strong> to pass</li>
-                <li>Each question is worth equal points</li>
-                <li>Take your time and reflect on what you've learned</li>
-                <li>You can retake the quiz if needed</li>
-            </ul>
-        </div>
-
-        <form id="quizForm">
-            <!-- Module 1: Understanding Self-Love -->
-            <div class="question-container" data-question="1">
-                <span class="question-number">Question 1</span>
-                <span class="module-tag">Module 1</span>
-                <div class="question-text">What is the true meaning of self-love?</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1a" value="a">
-                        <label for="q1a">Always putting yourself first before others</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1b" value="b">
-                        <label for="q1b">Accepting and caring for yourself while also respecting others</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1c" value="c">
-                        <label for="q1c">Being selfish and indulgent</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q1" id="q1d" value="d">
-                        <label for="q1d">Only focusing on physical appearance</label>
-                    </div>
+        <div class="quiz-content">
+            <!-- Module Selector -->
+            <div class="module-selector" id="module-selector">
+                <h2>Select a Module to Quiz</h2>
+                <div class="module-grid" id="module-grid">
+                    <!-- Module buttons will be loaded here -->
                 </div>
-                <div class="feedback"></div>
             </div>
 
-            <!-- Module 2: Self-Awareness & Acceptance -->
-            <div class="question-container" data-question="2">
-                <span class="question-number">Question 2</span>
-                <span class="module-tag">Module 2</span>
-                <div class="question-text">Self-acceptance means:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2a" value="a">
-                        <label for="q2a">Giving up on personal growth</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2b" value="b">
-                        <label for="q2b">Acknowledging both strengths and weaknesses without harsh judgment</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2c" value="c">
-                        <label for="q2c">Pretending flaws don't exist</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q2" id="q2d" value="d">
-                        <label for="q2d">Only accepting positive qualities</label>
-                    </div>
+            <!-- Quiz Section -->
+            <div class="quiz-section" id="quiz-section">
+                <div id="questions-container"></div>
+                <div class="quiz-actions">
+                    <button class="btn btn-secondary" onclick="backToModules()">Cancel</button>
+                    <button class="btn btn-primary" onclick="submitQuiz()">Submit Quiz</button>
                 </div>
-                <div class="feedback"></div>
             </div>
 
-            <!-- Module 3: Inner Child Healing -->
-            <div class="question-container" data-question="3">
-                <span class="question-number">Question 3</span>
-                <span class="module-tag">Module 3</span>
-                <div class="question-text">Why is inner child healing important for self-love?</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3a" value="a">
-                        <label for="q3a">It's not important for adults</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3b" value="b">
-                        <label for="q3b">It helps heal childhood wounds that affect how we treat ourselves today</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3c" value="c">
-                        <label for="q3c">It's only about remembering happy memories</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q3" id="q3d" value="d">
-                        <label for="q3d">It means staying childish</label>
-                    </div>
+            <!-- Results Section -->
+            <div class="results-section" id="results-section">
+                <h2>Quiz Complete! 🎉</h2>
+                <div class="score-display" id="score-display">0%</div>
+                <div class="score-message" id="score-message"></div>
+                <div class="feedback" id="feedback-container"></div>
+                <div class="quiz-actions">
+                    <button class="btn btn-secondary" onclick="backToModules()">Back to Modules</button>
+                    <button class="btn btn-primary" onclick="retakeQuiz()">Retake Quiz</button>
                 </div>
-                <div class="feedback"></div>
             </div>
-
-            <!-- Module 4: Positive Self-Talk -->
-            <div class="question-container" data-question="4">
-                <span class="question-number">Question 4</span>
-                <span class="module-tag">Module 4</span>
-                <div class="question-text">Positive self-talk is most effective when:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4a" value="a">
-                        <label for="q4a">You ignore all negative thoughts completely</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4b" value="b">
-                        <label for="q4b">You acknowledge negative thoughts and reframe them with compassion</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4c" value="c">
-                        <label for="q4c">You repeat affirmations without believing them</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q4" id="q4d" value="d">
-                        <label for="q4d">You only think positive thoughts all the time</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <!-- Module 5: Setting Boundaries -->
-            <div class="question-container" data-question="5">
-                <span class="question-number">Question 5</span>
-                <span class="module-tag">Module 5</span>
-                <div class="question-text">Setting boundaries is an act of self-love because:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5a" value="a">
-                        <label for="q5a">It allows you to control others</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5b" value="b">
-                        <label for="q5b">It protects your energy, time, and emotional wellbeing</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5c" value="c">
-                        <label for="q5c">It means being mean to people</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q5" id="q5d" value="d">
-                        <label for="q5d">It's unnecessary if you're strong enough</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <!-- Module 6: Self-Care Rituals -->
-            <div class="question-container" data-question="6">
-                <span class="question-number">Question 6</span>
-                <span class="module-tag">Module 6</span>
-                <div class="question-text">True self-care involves:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6a" value="a">
-                        <label for="q6a">Only physical activities like spa days</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6b" value="b">
-                        <label for="q6b">Holistic care of physical, emotional, mental, and spiritual needs</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6c" value="c">
-                        <label for="q6c">Expensive products and treatments</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q6" id="q6d" value="d">
-                        <label for="q6d">Something you only do when stressed</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <!-- Module 7: Self-Compassion -->
-            <div class="question-container" data-question="7">
-                <span class="question-number">Question 7</span>
-                <span class="module-tag">Module 7</span>
-                <div class="question-text">Self-compassion means:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7a" value="a">
-                        <label for="q7a">Making excuses for bad behavior</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7b" value="b">
-                        <label for="q7b">Treating yourself with the same kindness you'd offer a good friend</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7c" value="c">
-                        <label for="q7c">Never holding yourself accountable</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q7" id="q7d" value="d">
-                        <label for="q7d">Being weak and soft</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <!-- Module 8: Authentic Living -->
-            <div class="question-container" data-question="8">
-                <span class="question-number">Question 8</span>
-                <span class="module-tag">Module 8</span>
-                <div class="question-text">Living authentically requires:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8a" value="a">
-                        <label for="q8a">Pleasing everyone around you</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8b" value="b">
-                        <label for="q8b">Never changing or growing</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8c" value="c">
-                        <label for="q8c">Knowing and expressing your true values, needs, and desires</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q8" id="q8d" value="d">
-                        <label for="q8d">Ignoring social norms completely</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <!-- General Questions -->
-            <div class="question-container" data-question="9">
-                <span class="question-number">Question 9</span>
-                <span class="module-tag">General</span>
-                <div class="question-text">The foundation of all self-love practices is:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9a" value="a">
-                        <label for="q9a">Self-awareness and honest self-reflection</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9b" value="b">
-                        <label for="q9b">Comparing yourself to others</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9c" value="c">
-                        <label for="q9c">Seeking external validation</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q9" id="q9d" value="d">
-                        <label for="q9d">Perfecting your image</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <div class="question-container" data-question="10">
-                <span class="question-number">Question 10</span>
-                <span class="module-tag">General</span>
-                <div class="question-text">Self-love is a journey that:</div>
-                <div class="options">
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10a" value="a">
-                        <label for="q10a">Ends once you complete this course</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10b" value="b">
-                        <label for="q10b">Is ongoing and requires continuous practice and patience</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10c" value="c">
-                        <label for="q10c">Should be quick and easy</label>
-                    </div>
-                    <div class="option">
-                        <input type="radio" name="q10" id="q10d" value="d">
-                        <label for="q10d">Isn't necessary for everyone</label>
-                    </div>
-                </div>
-                <div class="feedback"></div>
-            </div>
-
-            <div class="submit-section">
-                <button type="button" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
-            </div>
-        </form>
-
-        <div class="results" id="results">
-            <h2 id="resultsTitle"></h2>
-            <div class="score-circle">
-                <div class="score-text" id="scoreText"></div>
-            </div>
-            <div class="result-message" id="resultMessage"></div>
-            <div class="result-actions" id="resultActions"></div>
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="./firebase-config.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // Correct answers
-        const correctAnswers = {
-            q1: 'b', q2: 'b', q3: 'b', q4: 'b', q5: 'b',
-            q6: 'b', q7: 'b', q8: 'c', q9: 'a', q10: 'b'
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
+            authDomain: "self-love-course.firebaseapp.com",
+            projectId: "self-love-course",
+            storageBucket: "self-love-course.firebasestorage.app",
+            messagingSenderId: "115196735828",
+            appId: "1:115196735828:web:426f660bd8b034fd89d8c1",
+            measurementId: "G-WTPVKYL5X0"
         };
 
-        // Feedback messages
-        const feedback = {
-            q1: {
-                correct: "✓ Correct! Self-love is about acceptance and care for yourself while respecting others.",
-                incorrect: "✗ Incorrect. Self-love means accepting and caring for yourself while also respecting others."
-            },
-            q2: {
-                correct: "✓ Correct! Self-acceptance involves acknowledging all parts of yourself without harsh judgment.",
-                incorrect: "✗ Incorrect. Self-acceptance means acknowledging both strengths and weaknesses without harsh judgment."
-            },
-            q3: {
-                correct: "✓ Correct! Inner child healing helps heal wounds that affect how we treat ourselves today.",
-                incorrect: "✗ Incorrect. Inner child healing helps heal childhood wounds that affect current self-treatment."
-            },
-            q4: {
-                correct: "✓ Correct! Effective self-talk acknowledges and reframes negative thoughts with compassion.",
-                incorrect: "✗ Incorrect. Positive self-talk works by acknowledging negative thoughts and reframing them compassionately."
-            },
-            q5: {
-                correct: "✓ Correct! Boundaries protect your energy, time, and emotional wellbeing.",
-                incorrect: "✗ Incorrect. Boundaries are self-love because they protect your energy, time, and emotional wellbeing."
-            },
-            q6: {
-                correct: "✓ Correct! True self-care is holistic - physical, emotional, mental, and spiritual.",
-                incorrect: "✗ Incorrect. True self-care involves holistic care of physical, emotional, mental, and spiritual needs."
-            },
-            q7: {
-                correct: "✓ Correct! Self-compassion means treating yourself like you'd treat a good friend.",
-                incorrect: "✗ Incorrect. Self-compassion means treating yourself with the kindness you'd offer a good friend."
-            },
-            q8: {
-                correct: "✓ Correct! Authentic living means knowing and expressing your true values and desires.",
-                incorrect: "✗ Incorrect. Living authentically requires knowing and expressing your true values, needs, and desires."
-            },
-            q9: {
-                correct: "✓ Correct! Self-awareness and honest reflection are the foundation of self-love.",
-                incorrect: "✗ Incorrect. The foundation is self-awareness and honest self-reflection."
-            },
-            q10: {
-                correct: "✓ Correct! Self-love is an ongoing journey requiring continuous practice.",
-                incorrect: "✗ Incorrect. Self-love is ongoing and requires continuous practice and patience."
-            }
-        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
         let currentUser = null;
+        let completedQuizzes = [];
+        let currentModule = null;
+        let userAnswers = {};
 
-        auth.onAuthStateChanged((user) => {
-            if (!user) {
-                window.location.href = 'auth.html';
-                return;
+        // Quiz Questions for Each Module
+        const quizData = {
+            1: {
+                title: "Understanding Self-Love",
+                questions: [
+                    {
+                        question: "What is the foundation of self-love?",
+                        options: ["Self-acceptance", "Self-criticism", "Comparing to others", "Seeking validation"],
+                        correct: 0
+                    },
+                    {
+                        question: "Self-love means:",
+                        options: ["Being selfish", "Prioritizing others always", "Caring for your wellbeing", "Never saying no"],
+                        correct: 2
+                    },
+                    {
+                        question: "Which practice supports self-love?",
+                        options: ["Negative self-talk", "Setting boundaries", "Ignoring your needs", "Perfectionism"],
+                        correct: 1
+                    },
+                    {
+                        question: "Self-love is important because:",
+                        options: ["It makes you better than others", "It helps you care for others better", "It's selfish but necessary", "It replaces relationships"],
+                        correct: 1
+                    },
+                    {
+                        question: "A key aspect of self-love is:",
+                        options: ["Never making mistakes", "Accepting your imperfections", "Always being happy", "Pleasing everyone"],
+                        correct: 1
+                    }
+                ]
+            },
+            2: {
+                title: "Self-Awareness & Acceptance",
+                questions: [
+                    {
+                        question: "Self-awareness involves:",
+                        options: ["Judging yourself harshly", "Understanding your patterns", "Comparing to others", "Hiding your flaws"],
+                        correct: 1
+                    },
+                    {
+                        question: "Acceptance means:",
+                        options: ["Giving up on growth", "Acknowledging reality without judgment", "Settling for less", "Never changing"],
+                        correct: 1
+                    },
+                    {
+                        question: "How can you increase self-awareness?",
+                        options: ["Avoiding reflection", "Journaling and meditation", "Staying busy constantly", "Ignoring emotions"],
+                        correct: 1
+                    },
+                    {
+                        question: "Self-acceptance helps you:",
+                        options: ["Feel stuck", "Embrace your authentic self", "Avoid challenges", "Stay in your comfort zone"],
+                        correct: 1
+                    },
+                    {
+                        question: "What supports self-awareness?",
+                        options: ["Mindfulness practices", "Constant distraction", "Numbing emotions", "Avoiding silence"],
+                        correct: 0
+                    }
+                ]
+            },
+            3: {
+                title: "Inner Child Healing",
+                questions: [
+                    {
+                        question: "Your inner child represents:",
+                        options: ["Childish behavior", "Past wounds and needs", "Immaturity", "Regression"],
+                        correct: 1
+                    },
+                    {
+                        question: "Inner child healing involves:",
+                        options: ["Ignoring the past", "Reparenting yourself", "Blaming others", "Staying stuck"],
+                        correct: 1
+                    },
+                    {
+                        question: "How can you connect with your inner child?",
+                        options: ["Acting immature", "Guided visualization", "Ignoring feelings", "Numbing pain"],
+                        correct: 1
+                    },
+                    {
+                        question: "Healing your inner child helps:",
+                        options: ["Release old patterns", "Stay in the past", "Avoid growth", "Blame parents forever"],
+                        correct: 0
+                    },
+                    {
+                        question: "A sign of inner child wounds:",
+                        options: ["Healthy boundaries", "People-pleasing patterns", "Self-confidence", "Emotional regulation"],
+                        correct: 1
+                    }
+                ]
+            },
+            4: {
+                title: "Positive Self-Talk",
+                questions: [
+                    {
+                        question: "Positive self-talk is:",
+                        options: ["Lying to yourself", "Encouraging inner dialogue", "Ignoring problems", "Toxic positivity"],
+                        correct: 1
+                    },
+                    {
+                        question: "How to change negative self-talk?",
+                        options: ["Ignore it", "Challenge and reframe it", "Suppress it", "Believe it fully"],
+                        correct: 1
+                    },
+                    {
+                        question: "Self-talk affects:",
+                        options: ["Nothing important", "Your thoughts, feelings, and actions", "Only your mood", "Just your words"],
+                        correct: 1
+                    },
+                    {
+                        question: "A helpful self-talk technique:",
+                        options: ["Self-criticism", "Speaking to yourself like a friend", "Harsh judgment", "Perfectionism"],
+                        correct: 1
+                    },
+                    {
+                        question: "When you catch negative self-talk:",
+                        options: ["Feel guilty", "Pause and reframe", "Ignore it", "Believe it"],
+                        correct: 1
+                    }
+                ]
+            },
+            5: {
+                title: "Setting Boundaries",
+                questions: [
+                    {
+                        question: "Boundaries are:",
+                        options: ["Walls to keep people out", "Healthy limits that protect you", "Selfish barriers", "Signs of weakness"],
+                        correct: 1
+                    },
+                    {
+                        question: "Setting boundaries means:",
+                        options: ["Being mean", "Honoring your needs", "Isolating yourself", "Never helping others"],
+                        correct: 1
+                    },
+                    {
+                        question: "Why are boundaries important?",
+                        options: ["To control others", "To protect your energy and wellbeing", "To be difficult", "To avoid relationships"],
+                        correct: 1
+                    },
+                    {
+                        question: "How to communicate boundaries?",
+                        options: ["Aggressively", "Clearly and kindly", "Passive-aggressively", "By hints only"],
+                        correct: 1
+                    },
+                    {
+                        question: "Healthy boundaries include:",
+                        options: ["Saying yes to everything", "Saying no when needed", "Never disappointing anyone", "Ignoring your limits"],
+                        correct: 1
+                    }
+                ]
+            },
+            6: {
+                title: "Self-Care Rituals",
+                questions: [
+                    {
+                        question: "Self-care is:",
+                        options: ["Selfish indulgence", "Necessary for wellbeing", "Only for the wealthy", "A luxury"],
+                        correct: 1
+                    },
+                    {
+                        question: "Effective self-care includes:",
+                        options: ["Only spa days", "Regular sustainable practices", "Expensive products", "Occasional treats only"],
+                        correct: 1
+                    },
+                    {
+                        question: "Daily self-care can be:",
+                        options: ["Time-consuming only", "Simple and brief", "Impossible to maintain", "Only for weekends"],
+                        correct: 1
+                    },
+                    {
+                        question: "Self-care helps you:",
+                        options: ["Avoid responsibilities", "Recharge and show up better", "Be lazy", "Escape life"],
+                        correct: 1
+                    },
+                    {
+                        question: "Types of self-care include:",
+                        options: ["Only physical", "Physical, mental, emotional, spiritual", "Just relaxation", "Only exercise"],
+                        correct: 1
+                    }
+                ]
+            },
+            7: {
+                title: "Self-Compassion",
+                questions: [
+                    {
+                        question: "Self-compassion means:",
+                        options: ["Making excuses", "Treating yourself with kindness", "Lowering standards", "Giving up"],
+                        correct: 1
+                    },
+                    {
+                        question: "When you make a mistake, self-compassion involves:",
+                        options: ["Harsh criticism", "Understanding and forgiveness", "Denial", "Self-punishment"],
+                        correct: 1
+                    },
+                    {
+                        question: "Self-compassion is:",
+                        options: ["Weakness", "A strength", "Self-pity", "Laziness"],
+                        correct: 1
+                    },
+                    {
+                        question: "How to practice self-compassion?",
+                        options: ["Be your own worst critic", "Speak to yourself like a good friend", "Never acknowledge mistakes", "Compare to others"],
+                        correct: 1
+                    },
+                    {
+                        question: "Self-compassion helps with:",
+                        options: ["Avoiding growth", "Resilience and healing", "Staying stuck", "Self-indulgence"],
+                        correct: 1
+                    }
+                ]
+            },
+            8: {
+                title: "Authentic Living",
+                questions: [
+                    {
+                        question: "Authentic living means:",
+                        options: ["Pleasing everyone", "Being true to yourself", "Never changing", "Following trends"],
+                        correct: 1
+                    },
+                    {
+                        question: "Living authentically requires:",
+                        options: ["Perfection", "Courage and self-awareness", "Approval from others", "Conformity"],
+                        correct: 1
+                    },
+                    {
+                        question: "A sign of authentic living:",
+                        options: ["Constant people-pleasing", "Honoring your values", "Hiding your true self", "Following others' paths"],
+                        correct: 1
+                    },
+                    {
+                        question: "Authentic living helps you:",
+                        options: ["Fit in better", "Feel aligned and fulfilled", "Avoid judgment", "Please everyone"],
+                        correct: 1
+                    },
+                    {
+                        question: "To live authentically:",
+                        options: ["Hide your quirks", "Embrace your uniqueness", "Copy others", "Seek constant validation"],
+                        correct: 1
+                    }
+                ]
             }
-            currentUser = user;
+        };
+
+        // Check authentication
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadQuizProgress();
+                renderModuleButtons();
+            } else {
+                window.location.href = 'auth.html';
+            }
         });
 
-        function submitQuiz() {
-            const form = document.getElementById('quizForm');
-            let score = 0;
-            let answered = 0;
-
-            for (let i = 1; i <= 10; i++) {
-                const questionName = 'q' + i;
-                const selected = form.querySelector(`input[name="${questionName}"]:checked`);
-                const container = document.querySelector(`[data-question="${i}"]`);
-                const feedbackDiv = container.querySelector('.feedback');
-
-                if (selected) {
-                    answered++;
-                    const isCorrect = selected.value === correctAnswers[questionName];
-                    
-                    if (isCorrect) {
-                        score++;
-                        container.classList.add('correct');
-                        container.classList.remove('incorrect');
-                        feedbackDiv.textContent = feedback[questionName].correct;
-                        feedbackDiv.classList.add('show', 'correct');
-                        feedbackDiv.classList.remove('incorrect');
-                    } else {
-                        container.classList.add('incorrect');
-                        container.classList.remove('correct');
-                        feedbackDiv.textContent = feedback[questionName].incorrect;
-                        feedbackDiv.classList.add('show', 'incorrect');
-                        feedbackDiv.classList.remove('correct');
-                    }
-                }
-            }
-
-            if (answered < 10) {
-                alert('Please answer all questions before submitting.');
-                return;
-            }
-
-            const percentage = (score / 10) * 100;
-            const passed = percentage >= 80;
-
-            showResults(score, percentage, passed);
-            saveQuizResults(score, percentage, passed);
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function showResults(score, percentage, passed) {
-            const resultsDiv = document.getElementById('results');
-            const resultsTitle = document.getElementById('resultsTitle');
-            const scoreText = document.getElementById('scoreText');
-            const resultMessage = document.getElementById('resultMessage');
-            const resultActions = document.getElementById('resultActions');
-
-            resultsDiv.classList.add('show');
-            scoreText.textContent = percentage + '%';
-
-            if (passed) {
-                resultsTitle.textContent = '💖 Congratulations!';
-                resultMessage.innerHTML = `
-                    <strong>You passed with ${score}/10 correct answers!</strong><br><br>
-                    You've demonstrated a strong understanding of self-love principles. 
-                    Your certificate is ready!<br><br>
-                    This is a beautiful step in your self-love journey. Celebrate your growth! 💕
-                `;
-                resultActions.innerHTML = `
-                    <a href="certificate.html" class="result-btn certificate-btn">🏆 Get Your Certificate</a>
-                    <a href="dashboard.html" class="result-btn dashboard-btn">← Back to Dashboard</a>
-                `;
-            } else {
-                resultsTitle.textContent = 'Keep Growing 🌱';
-                resultMessage.innerHTML = `
-                    <strong>You scored ${score}/10 (${percentage}%).</strong><br><br>
-                    You need 80% to pass. Review the modules and try again when ready.<br><br>
-                    Remember: self-love is a journey, not a destination. Be compassionate with yourself! 💖
-                `;
-                resultActions.innerHTML = `
-                    <button onclick="retryQuiz()" class="result-btn retry-btn">🔄 Retry Quiz</button>
-                    <a href="dashboard.html" class="result-btn dashboard-btn">← Back to Dashboard</a>
-                `;
-            }
-        }
-
-        async function saveQuizResults(score, percentage, passed) {
-            if (!currentUser) return;
-
+        // Load quiz progress
+        async function loadQuizProgress() {
             try {
-                await db.collection('selfLoveQuizResults').doc(currentUser.uid).set({
-                    score: score,
-                    percentage: percentage,
-                    passed: passed,
-                    totalQuestions: 10,
-                    completedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                    userId: currentUser.uid,
-                    userEmail: currentUser.email
-                });
+                const progressDoc = await db.collection('users')
+                    .doc(currentUser.uid)
+                    .collection('progress')
+                    .doc('quizzes')
+                    .get();
 
-                if (passed) {
-                    await db.collection('selfLoveProgress').doc(currentUser.uid).set({
-                        quizPassed: true,
-                        quizScore: percentage,
-                        quizCompletedAt: firebase.firestore.FieldValue.serverTimestamp()
-                    }, { merge: true });
+                if (progressDoc.exists) {
+                    completedQuizzes = progressDoc.data().completed || [];
                 }
             } catch (error) {
-                console.error('Error saving quiz results:', error);
+                console.error('Error loading quiz progress:', error);
             }
         }
 
-        function retryQuiz() {
-            document.getElementById('quizForm').reset();
-            document.querySelectorAll('.question-container').forEach(container => {
-                container.classList.remove('correct', 'incorrect');
-            });
-            document.querySelectorAll('.feedback').forEach(feedback => {
-                feedback.classList.remove('show', 'correct', 'incorrect');
-                feedback.textContent = '';
-            });
-            document.getElementById('results').classList.remove('show');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Render module buttons
+        function renderModuleButtons() {
+            const grid = document.getElementById('module-grid');
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 8; i++) {
+                const button = document.createElement('button');
+                button.className = `module-btn ${completedQuizzes.includes(i) ? 'completed' : ''}`;
+                button.textContent = `Module ${i}`;
+                button.onclick = () => startQuiz(i);
+                grid.appendChild(button);
+            }
         }
+
+        // Start quiz
+        function startQuiz(moduleNumber) {
+            currentModule = moduleNumber;
+            userAnswers = {};
+            
+            document.getElementById('module-selector').style.display = 'none';
+            document.getElementById('quiz-section').classList.add('active');
+            
+            renderQuestions();
+        }
+
+        // Render questions
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            const quiz = quizData[currentModule];
+            
+            container.innerHTML = `<h2 style="text-align: center; color: #667eea; margin-bottom: 30px;">${quiz.title}</h2>`;
+            
+            quiz.questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Question ${index + 1} of ${quiz.questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option">
+                                <input type="radio" 
+                                       id="q${index}_opt${optIndex}" 
+                                       name="question${index}" 
+                                       value="${optIndex}"
+                                       onchange="saveAnswer(${index}, ${optIndex})">
+                                <label for="q${index}_opt${optIndex}">${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        // Save answer
+        window.saveAnswer = function(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+        };
+
+        // Submit quiz
+        window.submitQuiz = function() {
+            const quiz = quizData[currentModule];
+            
+            if (Object.keys(userAnswers).length < quiz.questions.length) {
+                alert('Please answer all questions before submitting!');
+                return;
+            }
+            
+            let correct = 0;
+            let feedback = '';
+            
+            quiz.questions.forEach((q, index) => {
+                const isCorrect = userAnswers[index] === q.correct;
+                if (isCorrect) correct++;
+                
+                feedback += `
+                    <div class="feedback-item ${isCorrect ? 'correct' : 'incorrect'}">
+                        <strong>Question ${index + 1}:</strong> ${q.question}<br>
+                        <strong>Your answer:</strong> ${q.options[userAnswers[index]]}<br>
+                        ${!isCorrect ? `<strong>Correct answer:</strong> ${q.options[q.correct]}<br>` : ''}
+                        <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect'}</strong>
+                    </div>
+                `;
+            });
+            
+            const percentage = Math.round((correct / quiz.questions.length) * 100);
+            const passed = percentage >= 70;
+            
+            document.getElementById('score-display').textContent = `${percentage}%`;
+            document.getElementById('score-message').innerHTML = `
+                You got <strong>${correct}</strong> out of <strong>${quiz.questions.length}</strong> correct!<br>
+                <span class="${passed ? 'pass' : 'fail'}">${passed ? '🎉 You Passed!' : '📚 Keep Learning!'}</span>
+            `;
+            document.getElementById('feedback-container').innerHTML = feedback;
+            
+            document.getElementById('quiz-section').classList.remove('active');
+            document.getElementById('results-section').classList.add('active');
+            
+            if (passed && !completedQuizzes.includes(currentModule)) {
+                saveQuizCompletion();
+            }
+        };
+
+        // Save quiz completion
+        async function saveQuizCompletion() {
+            completedQuizzes.push(currentModule);
+            
+            try {
+                await db.collection('users')
+                    .doc(currentUser.uid)
+                    .collection('progress')
+                    .doc('quizzes')
+                    .set({
+                        completed: completedQuizzes,
+                        lastUpdated: new Date()
+                    });
+            } catch (error) {
+                console.error('Error saving quiz progress:', error);
+            }
+        }
+
+        // Back to modules
+        window.backToModules = function() {
+            document.getElementById('quiz-section').classList.remove('active');
+            document.getElementById('results-section').classList.remove('active');
+            document.getElementById('module-selector').style.display = 'block';
+            renderModuleButtons();
+        };
+
+        // Retake quiz
+        window.retakeQuiz = function() {
+            document.getElementById('results-section').classList.remove('active');
+            startQuiz(currentModule);
+        };
     </script>
 </body>
 </html>
