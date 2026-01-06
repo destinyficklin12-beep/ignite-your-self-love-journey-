@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Self Love Course</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .logo h2 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            display: block;
+            border-radius: 5px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar nav ul li a:hover,
+        .sidebar nav ul li a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .dashboard-header {
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h1 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .dashboard-header p {
+            color: #666;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .stat-card p {
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Courses Section */
+        .courses-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .course-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .course-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .course-card button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .course-card button:hover {
+            background: #5568d3;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .dashboard-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>💖 Self Love Journey</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="course.html">My Courses</a></li>
+                    <li><a href="quiz.html">Quizzes</a></li>
+                    <li><a href="certificate.html">Certificates</a></li>
+                    <li><a id="logout-btn">Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <h1>Welcome Back, <span id="user-name">Student</span>! 🌟</h1>
+                <p id="user-email"></p>
+            </header>
+
+            <!-- Stats Cards -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <h3>Course Progress</h3>
+                    <p id="course-progress">Loading...</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Quizzes Taken</h3>
+                    <p id="quizzes-taken">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Certificates Earned</h3>
+                    <p id="certificates-earned">0</p>
+                </div>
+            </section>
+
+            <!-- Available Courses -->
+            <section class="courses-section">
+                <h2>Available Courses</h2>
+                <div id="courses-list" class="courses-grid">
+                    <div class="loading">Loading courses...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Firebase SDK v9 (Compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // NEW Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
+            authDomain: "self-love-course.firebaseapp.com",
+            projectId: "self-love-course",
+            storageBucket: "self-love-course.firebasestorage.app",
+            messagingSenderId: "115196735828",
+            appId: "1:115196735828:web:426f660bd8b034fd89d8c1",
+            measurementId: "G-WTPVKYL5X0"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        console.log('Dashboard: Firebase initialized');
+
+        // Check authentication state
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                console.log('User is logged in:', user.email);
+                await loadDashboard(user);
+            } else {
+                console.log('No user logged in, redirecting to auth page');
+                window.location.href = 'auth.html';
+            }
+        });
+
+        // Load dashboard data
+        async function loadDashboard(user) {
+            try {
+                // Display user info
+                const userNameElement = document.getElementById('user-name');
+                const userEmailElement = document.getElementById('user-email');
+                
+                if (userNameElement) {
+                    userNameElement.textContent = user.displayName || 'Student';
+                }
+                if (userEmailElement) {
+                    userEmailElement.textContent = user.email;
+                }
+
+                // Load user's course progress
+                await loadCourseProgress(user.uid);
+                
+                // Load available courses
+                await loadCourses();
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+
+        // Load course progress
+        async function loadCourseProgress(userId) {
+            try {
+                const progressDoc = await db.collection('users').doc(userId)
+                    .collection('progress').doc('course').get();
+                
+                if (progressDoc.exists) {
+                    const progress = progressDoc.data();
+                    console.log('Course progress:', progress);
+                    
+                    const progressElement = document.getElementById('course-progress');
+                    if (progressElement) {
+                        progressElement.textContent = `${progress.completedLessons || 0} lessons completed`;
+                    }
+                } else {
+                    document.getElementById('course-progress').textContent = '0 lessons completed';
+                }
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                document.getElementById('course-progress').textContent = '0 lessons completed';
+            }
+        }
+
+        // Load available courses
+        async function loadCourses() {
+            try {
+                const coursesSnapshot = await db.collection('courses').get();
+                
+                const coursesList = document.getElementById('courses-list');
+                coursesList.innerHTML = '';
+                
+                if (coursesSnapshot.empty) {
+                    showSampleCourses(coursesList);
+                } else {
+                    coursesSnapshot.forEach((doc) => {
+                        const course = doc.data();
+                        const courseCard = createCourseCard(doc.id, course);
+                        coursesList.appendChild(courseCard);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading courses:', error);
+                const coursesList = document.getElementById('courses-list');
+                showSampleCourses(coursesList);
+            }
+        }
+
+        // Show sample courses
+        function showSampleCourses(container) {
+            const sampleCourses = [
+                {
+                    id: 'self-love-basics',
+                    title: '💝 Self-Love Basics',
+                    description: 'Learn the fundamentals of self-love and self-acceptance. Discover how to embrace your authentic self and build a strong foundation of self-worth.'
+                },
+                {
+                    id: 'confidence-building',
+                    title: '✨ Building Confidence',
+                    description: 'Discover practical techniques to boost your confidence and overcome self-doubt. Transform your mindset and step into your power.'
+                },
+                {
+                    id: 'mindfulness-journey',
+                    title: '🧘‍♀️ Mindfulness Journey',
+                    description: 'Explore mindfulness practices that will help you connect deeper with yourself and find inner peace through meditation and self-reflection.'
+                }
+            ];
+
+            container.innerHTML = '';
+            sampleCourses.forEach(course => {
+                const courseCard = createCourseCard(course.id, course);
+                container.appendChild(courseCard);
+            });
+        }
+
+        // Create course card element
+        function createCourseCard(courseId, course) {
+            const card = document.createElement('div');
+            card.className = 'course-card';
+            card.innerHTML = `
+                <h3>${course.title || 'Untitled Course'}</h3>
+                <p>${course.description || 'No description available'}</p>
+                <button onclick="startCourse('${courseId}')">Start Course</button>
+            `;
+            return card;
+        }
+
+        // Start a course
+        window.startCourse = function(courseId) {
+            window.location.href = `course.html?id=${courseId}`;
+        };
+
+        // Logout function
+        const logoutButton = document.getElementById('logout-btn');
+        if (logoutButton) {
+            logoutButton.addEventListener('click', async () => {
+                try {
+                    await auth.signOut();
+                    console.log('User signed out');
+                    window.location.href = 'auth.html';
+                } catch (error) {
+                    console.error('Error signing out:', error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
