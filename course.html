@@ -482,7 +482,10 @@
                     <a href="${module.url}" target="_blank" class="btn btn-primary">
                         ${isCompleted ? 'Review Module' : 'Start Module'}
                     </a>
-                    ${!isCompleted ? `<button class="btn btn-secondary" onclick="markComplete(${module.id})">Mark Complete</button>` : ''}
+                    ${!isCompleted ? 
+                        `<button class="btn btn-secondary" onclick="markComplete(${module.id})">✓ Mark Complete</button>` : 
+                        `<button class="btn btn-secondary" onclick="markIncomplete(${module.id})" style="background: #f44336; color: white;">✗ Undo Complete</button>`
+                    }
                 </div>
             `;
 
@@ -501,16 +504,47 @@
                         .doc('modules')
                         .set({
                             completed: completedModules,
-                            lastUpdated: new Date()
+                            lastUpdated: firebase.firestore.Timestamp.now()
                         });
 
+                    console.log('Module ' + moduleId + ' marked as complete!');
                     renderModules();
                     
                     if (completedModules.length === 8) {
                         document.getElementById('completion-message').style.display = 'block';
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
                     }
                 } catch (error) {
                     console.error('Error saving progress:', error);
+                    alert('Error saving progress. Please try again.');
+                }
+            } else {
+                alert('You have already completed this module!');
+            }
+        };
+        
+        // Alternative: Mark as incomplete (undo completion)
+        window.markIncomplete = async function(moduleId) {
+            const index = completedModules.indexOf(moduleId);
+            if (index > -1) {
+                completedModules.splice(index, 1);
+                
+                try {
+                    await db.collection('users')
+                        .doc(currentUser.uid)
+                        .collection('progress')
+                        .doc('modules')
+                        .set({
+                            completed: completedModules,
+                            lastUpdated: firebase.firestore.Timestamp.now()
+                        });
+
+                    console.log('Module ' + moduleId + ' marked as incomplete');
+                    renderModules();
+                    document.getElementById('completion-message').style.display = 'none';
+                } catch (error) {
+                    console.error('Error saving progress:', error);
+                    alert('Error updating progress. Please try again.');
                 }
             }
         };
