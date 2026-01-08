@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,232 +12,235 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-        }
+```
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f5f7fa;
+    }
 
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
+    .container {
+        display: flex;
+        min-height: 100vh;
+    }
 
-        /* Sidebar */
+    /* Sidebar */
+    .sidebar {
+        width: 250px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        position: fixed;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .logo h2 {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .sidebar nav ul {
+        list-style: none;
+    }
+
+    .sidebar nav ul li {
+        margin-bottom: 15px;
+    }
+
+    .sidebar nav ul li a {
+        color: white;
+        text-decoration: none;
+        padding: 12px 15px;
+        display: block;
+        border-radius: 5px;
+        transition: background 0.3s;
+        cursor: pointer;
+    }
+
+    .sidebar nav ul li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main Content */
+    .main-content {
+        margin-left: 250px;
+        flex: 1;
+        padding: 40px;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .header h1 {
+        color: #333;
+        font-size: 36px;
+        margin-bottom: 10px;
+    }
+
+    .header p {
+        color: #666;
+        font-size: 18px;
+    }
+
+    /* Audio Categories */
+    .category {
+        margin-bottom: 50px;
+    }
+
+    .category-title {
+        color: #667eea;
+        font-size: 28px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #667eea;
+    }
+
+    .audio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+    }
+
+    .audio-card {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .audio-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .audio-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .audio-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-right: 15px;
+    }
+
+    .audio-card h3 {
+        color: #333;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .audio-card .duration {
+        color: #999;
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .audio-card p {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    .audio-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .btn-soundcloud {
+        background: #ff5500;
+        color: white;
+    }
+
+    .btn-soundcloud:hover {
+        background: #ff3300;
+        transform: scale(1.05);
+    }
+
+    .btn-download {
+        background: #667eea;
+        color: white;
+    }
+
+    .btn-download:hover {
+        background: #5568d3;
+    }
+
+    .info-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .info-box h2 {
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
+
+    .info-box p {
+        font-size: 16px;
+        opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
         .sidebar {
-            width: 250px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
+            width: 200px;
         }
-
-        .logo h2 {
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .sidebar nav ul {
-            list-style: none;
-        }
-
-        .sidebar nav ul li {
-            margin-bottom: 15px;
-        }
-
-        .sidebar nav ul li a {
-            color: white;
-            text-decoration: none;
-            padding: 12px 15px;
-            display: block;
-            border-radius: 5px;
-            transition: background 0.3s;
-            cursor: pointer;
-        }
-
-        .sidebar nav ul li a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Main Content */
+        
         .main-content {
-            margin-left: 250px;
-            flex: 1;
-            padding: 40px;
-        }
-
-        .header {
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            color: #333;
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 18px;
-        }
-
-        /* Audio Categories */
-        .category {
-            margin-bottom: 50px;
-        }
-
-        .category-title {
-            color: #667eea;
-            font-size: 28px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            margin-left: 200px;
+            padding: 20px;
         }
 
         .audio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: 1fr;
         }
+    }
 
-        .audio-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+    @media (max-width: 600px) {
+        .sidebar {
+            position: static;
+            width: 100%;
+            height: auto;
         }
-
-        .audio-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        
+        .main-content {
+            margin-left: 0;
         }
-
-        .audio-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
+        
+        .container {
+            flex-direction: column;
         }
+    }
+</style>
+```
 
-        .audio-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-right: 15px;
-        }
-
-        .audio-card h3 {
-            color: #333;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .audio-card .duration {
-            color: #999;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .audio-card p {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .audio-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            text-align: center;
-            display: inline-block;
-        }
-
-        .btn-soundcloud {
-            background: #ff5500;
-            color: white;
-        }
-
-        .btn-soundcloud:hover {
-            background: #ff3300;
-            transform: scale(1.05);
-        }
-
-        .btn-download {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-download:hover {
-            background: #5568d3;
-        }
-
-        .info-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        .info-box h2 {
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-
-        .info-box p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 200px;
-            }
-            
-            .main-content {
-                margin-left: 200px;
-                padding: 20px;
-            }
-
-            .audio-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .sidebar {
-                position: static;
-                width: 100%;
-                height: auto;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .container {
-                flex-direction: column;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -257,265 +261,268 @@
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="header">
-                <h1>🎧 Audio Library</h1>
-                <p>Listen to guided audio lessons and meditations</p>
+```
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <h1>🎧 Audio Library</h1>
+            <p>Listen to guided audio lessons and meditations</p>
+        </div>
+
+        <div class="info-box">
+            <h2>🎵 All Audio Hosted on SoundCloud</h2>
+            <p>Click "Listen on SoundCloud" to stream any audio lesson. Create a free SoundCloud account to save your favorites and create playlists!</p>
+        </div>
+
+        <!-- Module Audio Lessons -->
+        <div class="category">
+            <h2 class="category-title">Module Audio Lessons</h2>
+            <div class="audio-grid" id="module-audio-grid">
+                <!-- Audio cards will be loaded here -->
             </div>
+        </div>
 
-            <div class="info-box">
-                <h2>🎵 All Audio Hosted on SoundCloud</h2>
-                <p>Click "Listen on SoundCloud" to stream any audio lesson. Create a free SoundCloud account to save your favorites and create playlists!</p>
+        <!-- Guided Meditations -->
+        <div class="category">
+            <h2 class="category-title">Guided Meditations</h2>
+            <div class="audio-grid" id="meditation-audio-grid">
+                <!-- Meditation cards will be loaded here -->
             </div>
+        </div>
+    </main>
+</div>
 
-            <!-- Module Audio Lessons -->
-            <div class="category">
-                <h2 class="category-title">Module Audio Lessons</h2>
-                <div class="audio-grid" id="module-audio-grid">
-                    <!-- Audio cards will be loaded here -->
-                </div>
-            </div>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
-            <!-- Guided Meditations -->
-            <div class="category">
-                <h2 class="category-title">Guided Meditations</h2>
-                <div class="audio-grid" id="meditation-audio-grid">
-                    <!-- Meditation cards will be loaded here -->
-                </div>
-            </div>
-        </main>
-    </div>
+<script>
+    // Firebase Configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
+        authDomain: "self-love-course.firebaseapp.com",
+        projectId: "self-love-course",
+        storageBucket: "self-love-course.firebasestorage.app",
+        messagingSenderId: "115196735828",
+        appId: "1:115196735828:web:426f660bd8b034fd89d8c1"
+    };
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
 
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
-            authDomain: "self-love-course.firebaseapp.com",
-            projectId: "self-love-course",
-            storageBucket: "self-love-course.firebasestorage.app",
-            messagingSenderId: "115196735828",
-            appId: "1:115196735828:web:426f660bd8b034fd89d8c1"
-        };
+    // Check authentication
+    auth.onAuthStateChanged((user) => {
+        if (!user) {
+            window.location.href = 'auth.html';
+        }
+    });
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+    // ============================================
+    // UPDATE THESE WITH YOUR ACTUAL SOUNDCLOUD URLS
+    // ============================================
+    const moduleAudios = [
+        {
+            id: 1,
+            title: "Module 1: Understanding Self-Love",
+            duration: "30-45 min",
+            description: "Discover what self-love truly means and why it's essential for your wellbeing.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-1-understanding-self-love",
+            icon: "💖"
+        },
+        {
+            id: 2,
+            title: "Module 2: Self-Awareness & Acceptance",
+            duration: "30-45 min",
+            description: "Learn to recognize your patterns and embrace who you truly are.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-2-self-awareness",
+            icon: "🔍"
+        },
+        {
+            id: 3,
+            title: "Module 3: Inner Child Healing",
+            duration: "30-45 min",
+            description: "Connect with and heal your inner child to release past wounds.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-3-inner-child",
+            icon: "🧸"
+        },
+        {
+            id: 4,
+            title: "Module 4: Positive Self-Talk",
+            duration: "30-45 min",
+            description: "Transform your inner dialogue and cultivate a supportive voice.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-4-self-talk",
+            icon: "💭"
+        },
+        {
+            id: 5,
+            title: "Module 5: Setting Boundaries",
+            duration: "45-60 min",
+            description: "Learn to set healthy boundaries that protect your energy.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-5-boundaries",
+            icon: "🛡️"
+        },
+        {
+            id: 6,
+            title: "Module 6: Self-Care Rituals",
+            duration: "45-60 min",
+            description: "Create sustainable self-care practices that nourish you.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-6-self-care",
+            icon: "🌸"
+        },
+        {
+            id: 7,
+            title: "Module 7: Self-Compassion",
+            duration: "45-60 min",
+            description: "Develop a kind relationship with yourself during challenges.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-7-compassion",
+            icon: "🤗"
+        },
+        {
+            id: 8,
+            title: "Module 8: Authentic Living",
+            duration: "45-60 min",
+            description: "Embrace your true self and live authentically.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-8-authentic-living",
+            icon: "✨"
+        }
+    ];
 
-        // Check authentication
-        auth.onAuthStateChanged((user) => {
-            if (!user) {
-                window.location.href = 'auth.html';
-            }
+    const meditationAudios = [
+        {
+            id: "med1",
+            title: "Self-Love Foundation Meditation",
+            duration: "10 min",
+            description: "Ground yourself in self-love and worthiness.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-1-foundation",
+            icon: "🧘‍♀️"
+        },
+        {
+            id: "med2",
+            title: "Self-Awareness Body Scan",
+            duration: "12 min",
+            description: "Connect deeply with your body and emotions.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-2-body-scan",
+            icon: "🧘"
+        },
+        {
+            id: "med3",
+            title: "Inner Child Healing Journey",
+            duration: "15 min",
+            description: "Meet and heal your younger self with love.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-3-inner-child",
+            icon: "🌈"
+        },
+        {
+            id: "med4",
+            title: "Positive Affirmations",
+            duration: "10 min",
+            description: "Rewire your inner voice with loving affirmations.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-4-affirmations",
+            icon: "💫"
+        },
+        {
+            id: "med5",
+            title: "Boundary Protection",
+            duration: "10 min",
+            description: "Create a protective boundary of love around yourself.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-5-boundaries",
+            icon: "🌟"
+        },
+        {
+            id: "med6",
+            title: "Self-Care Restoration",
+            duration: "12 min",
+            description: "Deep rest and restoration for your whole being.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-6-restoration",
+            icon: "🌙"
+        },
+        {
+            id: "med7",
+            title: "Loving-Kindness for Self",
+            duration: "12 min",
+            description: "Offer yourself unconditional love and compassion.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-7-loving-kindness",
+            icon: "💝"
+        },
+        {
+            id: "med8",
+            title: "Authentic Self Connection",
+            duration: "10 min",
+            description: "Connect with your true, authentic self.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-8-authentic-self",
+            icon: "🦋"
+        },
+        {
+            id: "med9",
+            title: "Course Completion Celebration",
+            duration: "15 min",
+            description: "Celebrate your journey and integrate all you've learned.",
+            soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-9-completion",
+            icon: "🎉"
+        }
+    ];
+
+    // Render module audio cards
+    function renderModuleAudios() {
+        const grid = document.getElementById('module-audio-grid');
+        grid.innerHTML = '';
+
+        moduleAudios.forEach(audio => {
+            const card = createAudioCard(audio);
+            grid.appendChild(card);
         });
+    }
 
-        // ============================================
-        // UPDATE THESE WITH YOUR ACTUAL SOUNDCLOUD URLS
-        // ============================================
-        const moduleAudios = [
-            {
-                id: 1,
-                title: "Module 1: Understanding Self-Love",
-                duration: "30-45 min",
-                description: "Discover what self-love truly means and why it's essential for your wellbeing.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-1-understanding-self-love",
-                icon: "💖"
-            },
-            {
-                id: 2,
-                title: "Module 2: Self-Awareness & Acceptance",
-                duration: "30-45 min",
-                description: "Learn to recognize your patterns and embrace who you truly are.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-2-self-awareness",
-                icon: "🔍"
-            },
-            {
-                id: 3,
-                title: "Module 3: Inner Child Healing",
-                duration: "30-45 min",
-                description: "Connect with and heal your inner child to release past wounds.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-3-inner-child",
-                icon: "🧸"
-            },
-            {
-                id: 4,
-                title: "Module 4: Positive Self-Talk",
-                duration: "30-45 min",
-                description: "Transform your inner dialogue and cultivate a supportive voice.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-4-self-talk",
-                icon: "💭"
-            },
-            {
-                id: 5,
-                title: "Module 5: Setting Boundaries",
-                duration: "45-60 min",
-                description: "Learn to set healthy boundaries that protect your energy.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-5-boundaries",
-                icon: "🛡️"
-            },
-            {
-                id: 6,
-                title: "Module 6: Self-Care Rituals",
-                duration: "45-60 min",
-                description: "Create sustainable self-care practices that nourish you.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-6-self-care",
-                icon: "🌸"
-            },
-            {
-                id: 7,
-                title: "Module 7: Self-Compassion",
-                duration: "45-60 min",
-                description: "Develop a kind relationship with yourself during challenges.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-7-compassion",
-                icon: "🤗"
-            },
-            {
-                id: 8,
-                title: "Module 8: Authentic Living",
-                duration: "45-60 min",
-                description: "Embrace your true self and live authentically.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-8-authentic-living",
-                icon: "✨"
-            }
-        ];
+    // Render meditation audio cards
+    function renderMeditationAudios() {
+        const grid = document.getElementById('meditation-audio-grid');
+        grid.innerHTML = '';
 
-        const meditationAudios = [
-            {
-                id: "med1",
-                title: "Self-Love Foundation Meditation",
-                duration: "10 min",
-                description: "Ground yourself in self-love and worthiness.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-1-foundation",
-                icon: "🧘‍♀️"
-            },
-            {
-                id: "med2",
-                title: "Self-Awareness Body Scan",
-                duration: "12 min",
-                description: "Connect deeply with your body and emotions.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-2-body-scan",
-                icon: "🧘"
-            },
-            {
-                id: "med3",
-                title: "Inner Child Healing Journey",
-                duration: "15 min",
-                description: "Meet and heal your younger self with love.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-3-inner-child",
-                icon: "🌈"
-            },
-            {
-                id: "med4",
-                title: "Positive Affirmations",
-                duration: "10 min",
-                description: "Rewire your inner voice with loving affirmations.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-4-affirmations",
-                icon: "💫"
-            },
-            {
-                id: "med5",
-                title: "Boundary Protection",
-                duration: "10 min",
-                description: "Create a protective boundary of love around yourself.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-5-boundaries",
-                icon: "🌟"
-            },
-            {
-                id: "med6",
-                title: "Self-Care Restoration",
-                duration: "12 min",
-                description: "Deep rest and restoration for your whole being.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-6-restoration",
-                icon: "🌙"
-            },
-            {
-                id: "med7",
-                title: "Loving-Kindness for Self",
-                duration: "12 min",
-                description: "Offer yourself unconditional love and compassion.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-7-loving-kindness",
-                icon: "💝"
-            },
-            {
-                id: "med8",
-                title: "Authentic Self Connection",
-                duration: "10 min",
-                description: "Connect with your true, authentic self.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-8-authentic-self",
-                icon: "🦋"
-            },
-            {
-                id: "med9",
-                title: "Course Completion Celebration",
-                duration: "15 min",
-                description: "Celebrate your journey and integrate all you've learned.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-9-completion",
-                icon: "🎉"
-            }
-        ];
-
-        // Render module audio cards
-        function renderModuleAudios() {
-            const grid = document.getElementById('module-audio-grid');
-            grid.innerHTML = '';
-
-            moduleAudios.forEach(audio => {
-                const card = createAudioCard(audio);
-                grid.appendChild(card);
-            });
-        }
-
-        // Render meditation audio cards
-        function renderMeditationAudios() {
-            const grid = document.getElementById('meditation-audio-grid');
-            grid.innerHTML = '';
-
-            meditationAudios.forEach(audio => {
-                const card = createAudioCard(audio);
-                grid.appendChild(card);
-            });
-        }
-
-        // Create audio card
-        function createAudioCard(audio) {
-            const card = document.createElement('div');
-            card.className = 'audio-card';
-            
-            card.innerHTML = `
-                <div class="audio-header">
-                    <div class="audio-icon">${audio.icon}</div>
-                    <div>
-                        <h3>${audio.title}</h3>
-                        <div class="duration">⏱️ ${audio.duration}</div>
-                    </div>
-                </div>
-                <p>${audio.description}</p>
-                <div class="audio-buttons">
-                    <a href="${audio.soundcloudURL}" target="_blank" class="btn btn-soundcloud">
-                        ▶ Listen on SoundCloud
-                    </a>
-                </div>
-            `;
-            
-            return card;
-        }
-
-        // Load audios
-        renderModuleAudios();
-        renderMeditationAudios();
-
-        // Logout
-        document.getElementById('logout-btn').addEventListener('click', async () => {
-            try {
-                await auth.signOut();
-                window.location.href = 'auth.html';
-            } catch (error) {
-                console.error('Error signing out:', error);
-            }
+        meditationAudios.forEach(audio => {
+            const card = createAudioCard(audio);
+            grid.appendChild(card);
         });
-    </script>
+    }
+
+    // Create audio card
+    function createAudioCard(audio) {
+        const card = document.createElement('div');
+        card.className = 'audio-card';
+        
+        card.innerHTML = `
+            <div class="audio-header">
+                <div class="audio-icon">${audio.icon}</div>
+                <div>
+                    <h3>${audio.title}</h3>
+                    <div class="duration">⏱️ ${audio.duration}</div>
+                </div>
+            </div>
+            <p>${audio.description}</p>
+            <div class="audio-buttons">
+                <a href="${audio.soundcloudURL}" target="_blank" class="btn btn-soundcloud">
+                    ▶ Listen on SoundCloud
+                </a>
+            </div>
+        `;
+        
+        return card;
+    }
+
+    // Load audios
+    renderModuleAudios();
+    renderMeditationAudios();
+
+    // Logout
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+        try {
+            await auth.signOut();
+            window.location.href = 'auth.html';
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    });
+</script>
+```
+
 </body>
 </html>
