@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Audio Library - Self Love Course</title>
+    <title>Self-Love Journey Course</title>
     <style>
         * {
             margin: 0;
@@ -16,7 +16,7 @@
             background: #f5f7fa;
         }
 
-        .container {
+        .course-container {
             display: flex;
             min-height: 100vh;
         }
@@ -35,6 +35,7 @@
         .logo h2 {
             margin-bottom: 30px;
             text-align: center;
+            font-size: 18px;
         }
 
         .sidebar nav ul {
@@ -66,90 +67,117 @@
             padding: 40px;
         }
 
-        .header {
+        .course-header {
             margin-bottom: 40px;
+            text-align: center;
         }
 
-        .header h1 {
+        .course-header h1 {
             color: #333;
             font-size: 36px;
             margin-bottom: 10px;
         }
 
-        .header p {
+        .course-header p {
             color: #666;
             font-size: 18px;
         }
 
-        /* Audio Categories */
-        .category {
-            margin-bottom: 50px;
+        .progress-bar {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
 
-        .category-title {
+        .progress-bar h3 {
             color: #667eea;
-            font-size: 28px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
+            margin-bottom: 10px;
         }
 
-        .audio-grid {
+        .progress-track {
+            background: #e0e0e0;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        /* Module Cards */
+        .modules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
         }
 
-        .audio-card {
+        .module-card {
             background: white;
-            padding: 25px;
+            padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
-        .audio-card:hover {
+        .module-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .audio-header {
+        .module-card.completed {
+            border: 2px solid #4caf50;
+        }
+
+        .module-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
 
-        .audio-icon {
-            width: 50px;
-            height: 50px;
+        .module-number {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .completion-status {
             font-size: 24px;
-            margin-right: 15px;
         }
 
-        .audio-card h3 {
+        .module-card h3 {
             color: #333;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .audio-card .duration {
-            color: #999;
-            font-size: 14px;
             margin-bottom: 15px;
+            font-size: 20px;
+            line-height: 1.4;
         }
 
-        .audio-card p {
+        .module-card p {
             color: #666;
             margin-bottom: 20px;
             line-height: 1.6;
         }
 
-        .audio-buttons {
+        .module-actions {
             display: flex;
             gap: 10px;
         }
@@ -159,7 +187,7 @@
             padding: 12px 20px;
             border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
@@ -168,44 +196,62 @@
             display: inline-block;
         }
 
-        .btn-soundcloud {
-            background: #ff5500;
-            color: white;
-        }
-
-        .btn-soundcloud:hover {
-            background: #ff3300;
-            transform: scale(1.05);
-        }
-
-        .btn-download {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-download:hover {
-            background: #5568d3;
-        }
-
-        .info-box {
+        .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .completion-message {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
             color: white;
             padding: 30px;
             border-radius: 15px;
-            margin-bottom: 40px;
             text-align: center;
+            margin-top: 30px;
+            display: none;
         }
 
-        .info-box h2 {
+        .completion-message h2 {
             margin-bottom: 15px;
-            font-size: 24px;
+            font-size: 28px;
         }
 
-        .info-box p {
+        .completion-message p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .completion-message button {
+            background: white;
+            color: #4caf50;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
             font-size: 16px;
-            opacity: 0.9;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
+        .completion-message button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .sidebar {
                 width: 200px;
@@ -216,7 +262,7 @@
                 padding: 20px;
             }
 
-            .audio-grid {
+            .modules-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -232,14 +278,14 @@
                 margin-left: 0;
             }
             
-            .container {
+            .course-container {
                 flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="course-container">
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="logo">
@@ -247,11 +293,9 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="course.html">My Courses</a></li>
-                    <li><a href="audio-library.html" class="active">Audio Library</a></li>
+                    <li><a href="dashboard.html">← Back to Dashboard</a></li>
                     <li><a href="quiz.html">Quizzes</a></li>
-                    <li><a href="certificate.html">Certificates</a></li>
+                    <li><a href="certificate.html">My Certificates</a></li>
                     <li><a id="logout-btn">Logout</a></li>
                 </ul>
             </nav>
@@ -259,30 +303,35 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="header">
-                <h1>🎧 Audio Library</h1>
-                <p>Listen to guided audio lessons and meditations</p>
-            </div>
+            <!-- Course Header -->
+            <header class="course-header">
+                <h1>🌟 Ignite Your Self-Love Journey</h1>
+                <p>Transform your relationship with yourself through 8 powerful modules</p>
+            </header>
 
-            <div class="info-box">
-                <h2>🎵 All Audio Hosted on SoundCloud</h2>
-                <p>Click "Listen on SoundCloud" to stream any audio lesson. Create a free SoundCloud account to save your favorites and create playlists!</p>
-            </div>
-
-            <!-- Module Audio Lessons -->
-            <div class="category">
-                <h2 class="category-title">Module Audio Lessons</h2>
-                <div class="audio-grid" id="module-audio-grid">
-                    <!-- Audio cards will be loaded here -->
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <h3>Your Progress</h3>
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill">0%</div>
                 </div>
+                <p style="margin-top: 10px; color: #666;">
+                    <span id="completed-count">0</span> of 8 modules completed
+                </p>
             </div>
 
-            <!-- Guided Meditations -->
-            <div class="category">
-                <h2 class="category-title">Guided Meditations</h2>
-                <div class="audio-grid" id="meditation-audio-grid">
-                    <!-- Meditation cards will be loaded here -->
-                </div>
+            <!-- Modules Grid -->
+            <div class="modules-grid" id="modules-grid">
+                <!-- Modules will be loaded here -->
+            </div>
+
+            <!-- Completion Message -->
+            <div class="completion-message" id="completion-message">
+                <h2>🎉 Congratulations!</h2>
+                <p>You've completed all 8 modules of your Self-Love Journey!</p>
+                <button onclick="window.location.href='certificate.html'">
+                    Get Your Certificate
+                </button>
             </div>
         </main>
     </div>
@@ -290,6 +339,7 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
         // Firebase Configuration
@@ -299,213 +349,216 @@
             projectId: "self-love-course",
             storageBucket: "self-love-course.firebasestorage.app",
             messagingSenderId: "115196735828",
-            appId: "1:115196735828:web:426f660bd8b034fd89d8c1"
+            appId: "1:115196735828:web:426f660bd8b034fd89d8c1",
+            measurementId: "G-WTPVKYL5X0"
         };
 
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Course Modules Data
+        const modules = [
+            {
+                id: 1,
+                title: "Understanding Self-Love",
+                description: "Discover what self-love truly means and why it's essential for your wellbeing and happiness.",
+                url: "https://eclipsoinati.wixsite.com/website/module-1-understanding-self-love",
+                duration: "30-45 min"
+            },
+            {
+                id: 2,
+                title: "Self-Awareness & Acceptance",
+                description: "Learn to recognize your thoughts, emotions, and patterns while embracing who you truly are.",
+                url: "https://eclipsoinati.wixsite.com/website/module-2-self-awareness-acceptance",
+                duration: "30-45 min"
+            },
+            {
+                id: 3,
+                title: "Inner Child Healing",
+                description: "Connect with and heal your inner child to release past wounds and embrace wholeness.",
+                url: "https://eclipsoinati.wixsite.com/website/module-3-inner-child-healing",
+                duration: "30-45 min"
+            },
+            {
+                id: 4,
+                title: "Positive Self-Talk",
+                description: "Transform your inner dialogue and cultivate a supportive, encouraging voice within.",
+                url: "https://eclipsoinati.wixsite.com/website/module-4-positive-self-talk",
+                duration: "30-45 min"
+            },
+            {
+                id: 5,
+                title: "Setting Boundaries",
+                description: "Learn to set healthy boundaries that honor your needs and protect your energy.",
+                url: "https://eclipsoinati.wixsite.com/website/module-5-setting-boundaries",
+                duration: "30-45 min"
+            },
+            {
+                id: 6,
+                title: "Self-Care Rituals",
+                description: "Create sustainable self-care practices that nourish your mind, body, and soul.",
+                url: "https://eclipsoinati.wixsite.com/website/module-6-self-care-rituals",
+                duration: "30-45 min"
+            },
+            {
+                id: 7,
+                title: "Self-Compassion",
+                description: "Develop a kind and understanding relationship with yourself during challenges.",
+                url: "https://eclipsoinati.wixsite.com/website/module-7-self-compassion",
+                duration: "30-45 min"
+            },
+            {
+                id: 8,
+                title: "Authentic Living",
+                description: "Embrace your true self and live authentically aligned with your values and purpose.",
+                url: "https://eclipsoinati.wixsite.com/website/module-8-authentic-living-45-60-min",
+                duration: "45-60 min"
+            }
+        ];
+
+        let currentUser = null;
+        let completedModules = [];
 
         // Check authentication
-        auth.onAuthStateChanged((user) => {
-            if (!user) {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                await loadProgress();
+                renderModules();
+            } else {
                 window.location.href = 'auth.html';
             }
         });
 
-        // ============================================
-        // UPDATE THESE WITH YOUR ACTUAL SOUNDCLOUD URLS
-        // ============================================
-        const moduleAudios = [
-            {
-                id: 1,
-                title: "Module 1: Understanding Self-Love",
-                duration: "30-45 min",
-                description: "Discover what self-love truly means and why it's essential for your wellbeing.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-1-understanding-self-love",
-                icon: "💖"
-            },
-            {
-                id: 2,
-                title: "Module 2: Self-Awareness & Acceptance",
-                duration: "30-45 min",
-                description: "Learn to recognize your patterns and embrace who you truly are.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-2-self-awareness",
-                icon: "🔍"
-            },
-            {
-                id: 3,
-                title: "Module 3: Inner Child Healing",
-                duration: "30-45 min",
-                description: "Connect with and heal your inner child to release past wounds.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-3-inner-child",
-                icon: "🧸"
-            },
-            {
-                id: 4,
-                title: "Module 4: Positive Self-Talk",
-                duration: "30-45 min",
-                description: "Transform your inner dialogue and cultivate a supportive voice.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-4-self-talk",
-                icon: "💭"
-            },
-            {
-                id: 5,
-                title: "Module 5: Setting Boundaries",
-                duration: "45-60 min",
-                description: "Learn to set healthy boundaries that protect your energy.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-5-boundaries",
-                icon: "🛡️"
-            },
-            {
-                id: 6,
-                title: "Module 6: Self-Care Rituals",
-                duration: "45-60 min",
-                description: "Create sustainable self-care practices that nourish you.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-6-self-care",
-                icon: "🌸"
-            },
-            {
-                id: 7,
-                title: "Module 7: Self-Compassion",
-                duration: "45-60 min",
-                description: "Develop a kind relationship with yourself during challenges.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-7-compassion",
-                icon: "🤗"
-            },
-            {
-                id: 8,
-                title: "Module 8: Authentic Living",
-                duration: "45-60 min",
-                description: "Embrace your true self and live authentically.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/module-8-authentic-living",
-                icon: "✨"
+        // Load user progress
+        async function loadProgress() {
+            try {
+                const progressDoc = await db.collection('users')
+                    .doc(currentUser.uid)
+                    .collection('progress')
+                    .doc('modules')
+                    .get();
+
+                if (progressDoc.exists) {
+                    completedModules = progressDoc.data().completed || [];
+                } else {
+                    completedModules = [];
+                }
+            } catch (error) {
+                console.error('Error loading progress:', error);
+                completedModules = [];
             }
-        ];
-
-        const meditationAudios = [
-            {
-                id: "med1",
-                title: "Self-Love Foundation Meditation",
-                duration: "10 min",
-                description: "Ground yourself in self-love and worthiness.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-1-foundation",
-                icon: "🧘‍♀️"
-            },
-            {
-                id: "med2",
-                title: "Self-Awareness Body Scan",
-                duration: "12 min",
-                description: "Connect deeply with your body and emotions.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-2-body-scan",
-                icon: "🧘"
-            },
-            {
-                id: "med3",
-                title: "Inner Child Healing Journey",
-                duration: "15 min",
-                description: "Meet and heal your younger self with love.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-3-inner-child",
-                icon: "🌈"
-            },
-            {
-                id: "med4",
-                title: "Positive Affirmations",
-                duration: "10 min",
-                description: "Rewire your inner voice with loving affirmations.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-4-affirmations",
-                icon: "💫"
-            },
-            {
-                id: "med5",
-                title: "Boundary Protection",
-                duration: "10 min",
-                description: "Create a protective boundary of love around yourself.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-5-boundaries",
-                icon: "🌟"
-            },
-            {
-                id: "med6",
-                title: "Self-Care Restoration",
-                duration: "12 min",
-                description: "Deep rest and restoration for your whole being.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-6-restoration",
-                icon: "🌙"
-            },
-            {
-                id: "med7",
-                title: "Loving-Kindness for Self",
-                duration: "12 min",
-                description: "Offer yourself unconditional love and compassion.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-7-loving-kindness",
-                icon: "💝"
-            },
-            {
-                id: "med8",
-                title: "Authentic Self Connection",
-                duration: "10 min",
-                description: "Connect with your true, authentic self.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-8-authentic-self",
-                icon: "🦋"
-            },
-            {
-                id: "med9",
-                title: "Course Completion Celebration",
-                duration: "15 min",
-                description: "Celebrate your journey and integrate all you've learned.",
-                soundcloudURL: "https://soundcloud.com/YOUR_USERNAME/meditation-9-completion",
-                icon: "🎉"
-            }
-        ];
-
-        // Render module audio cards
-        function renderModuleAudios() {
-            const grid = document.getElementById('module-audio-grid');
-            grid.innerHTML = '';
-
-            moduleAudios.forEach(audio => {
-                const card = createAudioCard(audio);
-                grid.appendChild(card);
-            });
         }
 
-        // Render meditation audio cards
-        function renderMeditationAudios() {
-            const grid = document.getElementById('meditation-audio-grid');
+        // Render modules
+        function renderModules() {
+            const grid = document.getElementById('modules-grid');
             grid.innerHTML = '';
 
-            meditationAudios.forEach(audio => {
-                const card = createAudioCard(audio);
+            modules.forEach(module => {
+                const isCompleted = completedModules.includes(module.id);
+                const card = createModuleCard(module, isCompleted);
                 grid.appendChild(card);
             });
+
+            updateProgress();
         }
 
-        // Create audio card
-        function createAudioCard(audio) {
+        // Create module card
+        function createModuleCard(module, isCompleted) {
             const card = document.createElement('div');
-            card.className = 'audio-card';
+            card.className = `module-card ${isCompleted ? 'completed' : ''}`;
             
             card.innerHTML = `
-                <div class="audio-header">
-                    <div class="audio-icon">${audio.icon}</div>
-                    <div>
-                        <h3>${audio.title}</h3>
-                        <div class="duration">⏱️ ${audio.duration}</div>
-                    </div>
+                <div class="module-header">
+                    <div class="module-number">${module.id}</div>
+                    <div class="completion-status">${isCompleted ? '✅' : '⭕'}</div>
                 </div>
-                <p>${audio.description}</p>
-                <div class="audio-buttons">
-                    <a href="${audio.soundcloudURL}" target="_blank" class="btn btn-soundcloud">
-                        ▶ Listen on SoundCloud
+                <h3>${module.title}</h3>
+                <p>${module.description}</p>
+                <p style="color: #999; font-size: 14px; margin-bottom: 15px;">⏱️ ${module.duration}</p>
+                <div class="module-actions">
+                    <a href="${module.url}" target="_blank" class="btn btn-primary">
+                        ${isCompleted ? 'Review Module' : 'Start Module'}
                     </a>
+                    ${!isCompleted ? 
+                        `<button class="btn btn-secondary" onclick="markComplete(${module.id})">✓ Mark Complete</button>` : 
+                        `<button class="btn btn-secondary" onclick="markIncomplete(${module.id})" style="background: #f44336; color: white;">✗ Undo Complete</button>`
+                    }
                 </div>
             `;
-            
+
             return card;
         }
 
-        // Load audios
-        renderModuleAudios();
-        renderMeditationAudios();
+        // Mark module as complete
+        window.markComplete = async function(moduleId) {
+            if (!completedModules.includes(moduleId)) {
+                completedModules.push(moduleId);
+                
+                try {
+                    await db.collection('users')
+                        .doc(currentUser.uid)
+                        .collection('progress')
+                        .doc('modules')
+                        .set({
+                            completed: completedModules,
+                            lastUpdated: firebase.firestore.Timestamp.now()
+                        });
+
+                    console.log('Module ' + moduleId + ' marked as complete!');
+                    renderModules();
+                    
+                    if (completedModules.length === 8) {
+                        document.getElementById('completion-message').style.display = 'block';
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    }
+                } catch (error) {
+                    console.error('Error saving progress:', error);
+                    alert('Error saving progress. Please try again.');
+                }
+            } else {
+                alert('You have already completed this module!');
+            }
+        };
+        
+        // Alternative: Mark as incomplete (undo completion)
+        window.markIncomplete = async function(moduleId) {
+            const index = completedModules.indexOf(moduleId);
+            if (index > -1) {
+                completedModules.splice(index, 1);
+                
+                try {
+                    await db.collection('users')
+                        .doc(currentUser.uid)
+                        .collection('progress')
+                        .doc('modules')
+                        .set({
+                            completed: completedModules,
+                            lastUpdated: firebase.firestore.Timestamp.now()
+                        });
+
+                    console.log('Module ' + moduleId + ' marked as incomplete');
+                    renderModules();
+                    document.getElementById('completion-message').style.display = 'none';
+                } catch (error) {
+                    console.error('Error saving progress:', error);
+                    alert('Error updating progress. Please try again.');
+                }
+            }
+        };
+
+        // Update progress bar
+        function updateProgress() {
+            const percentage = (completedModules.length / 8) * 100;
+            const progressFill = document.getElementById('progress-fill');
+            const completedCount = document.getElementById('completed-count');
+
+            progressFill.style.width = percentage + '%';
+            progressFill.textContent = Math.round(percentage) + '%';
+            completedCount.textContent = completedModules.length;
+        }
 
         // Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
