@@ -80,6 +80,66 @@
             color: #666;
         }
 
+        /* Workbook Promo Banner */
+        .workbook-promo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .workbook-promo-content {
+            flex: 1;
+        }
+
+        .workbook-promo h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .workbook-promo p {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .workbook-promo-price {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .workbook-promo-btn {
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .workbook-promo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .workbook-icon {
+            font-size: 80px;
+            opacity: 0.9;
+        }
+
         /* Stats Section */
         .stats-section {
             display: grid;
@@ -173,6 +233,15 @@
             .main-content {
                 margin-left: 200px;
             }
+
+            .workbook-promo {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .workbook-icon {
+                font-size: 60px;
+            }
         }
 
         @media (max-width: 600px) {
@@ -199,16 +268,17 @@
             <div class="logo">
                 <h2>💖 Self Love Journey</h2>
             </div>
-          <nav>
-    <ul>
-        <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="course.html">My Courses</a></li>
-        <li><a href="quiz.html">Quizzes</a></li>
-        <li><a href="certificate.html">Certificates</a></li>
-        <li><a href="audio-library.html">🎵 Audio Library</a></li>
-        <li><a id="logout-btn">Logout</a></li>
-    </ul>
-</nav>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="course.html">My Courses</a></li>
+                    <li><a href="audio-library.html">🎵 Audio Library</a></li>
+                    <li><a href="quiz.html">Quizzes</a></li>
+                    <li><a href="certificate.html">Certificates</a></li>
+                    <li><a href="https://my-store-10c0873.creator-spring.com/" target="_blank">🛍️ Shop</a></li>
+                    <li><a id="logout-btn">Logout</a></li>
+                </ul>
+            </nav>
         </aside>
 
         <!-- Main Content -->
@@ -218,6 +288,19 @@
                 <h1>Welcome Back, <span id="user-name">Student</span>! 🌟</h1>
                 <p id="user-email"></p>
             </header>
+
+            <!-- Workbook Promo Banner -->
+            <section class="workbook-promo">
+                <div class="workbook-promo-content">
+                    <h2>📖 Self Love Journey Workbook</h2>
+                    <p>Deepen your practice with our comprehensive workbook! Includes guided exercises, journal prompts, trackers, and worksheets for all 8 modules.</p>
+                    <div class="workbook-promo-price">Only $14.99</div>
+                    <a href="https://my-store-10c0873.creator-spring.com/" target="_blank" class="workbook-promo-btn">
+                        Get Your Workbook →
+                    </a>
+                </div>
+                <div class="workbook-icon">📚</div>
+            </section>
 
             <!-- Stats Cards -->
             <section class="stats-section">
