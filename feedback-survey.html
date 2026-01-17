@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Feedback Survey - Self Love Journey</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            color: #764ba2;
+            font-size: 22px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .question {
+            margin-bottom: 30px;
+        }
+
+        .question-label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .required {
+            color: #e74c3c;
+            margin-left: 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover,
+        .checkbox-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .radio-option input[type="radio"],
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .rating-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .rating-option input[type="radio"] {
+            display: none;
+        }
+
+        .rating-option label {
+            display: block;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .rating-option input[type="radio"]:checked + label {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .rating-option label:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .rating-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 30px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .thank-you {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+
+        .thank-you.show {
+            display: block;
+        }
+
+        .thank-you .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .thank-you h2 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .thank-you p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .rating-scale {
+                flex-wrap: wrap;
+            }
+
+            .rating-option {
+                flex-basis: calc(20% - 8px);
+                min-width: 50px;
+            }
+
+            .rating-option label {
+                padding: 10px 5px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="survey-form">
+            <div class="header">
+                <div class="icon">💖</div>
+                <h1>Self Love Journey Feedback</h1>
+                <p>Thank you for taking the Self Love Journey! Your feedback helps us improve and serve you better. Please take a few minutes to share your experience.</p>
+            </div>
+
+            <form id="feedbackForm">
+                <!-- Personal Information -->
+                <div class="section">
+                    <h2 class="section-title">About You</h2>
+                    
+                    <div class="question">
+                        <label class="question-label">
+                            Your Name <span class="required">*</span>
+                        </label>
+                        <input type="text" name="name" required placeholder="Enter your name">
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            Email Address <span class="required">*</span>
+                        </label>
+                        <input type="email" name="email" required placeholder="your@email.com">
+                    </div>
+                </div>
+
+                <!-- Overall Experience -->
+                <div class="section">
+                    <h2 class="section-title">Overall Experience</h2>
+                    
+                    <div class="question">
+                        <label class="question-label">
+                            How would you rate the overall course? <span class="required">*</span>
+                        </label>
+                        <div class="rating-scale">
+                            <div class="rating-option">
+                                <input type="radio" name="overall_rating" value="1" id="overall1" required>
+                                <label for="overall1">1</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="overall_rating" value="2" id="overall2">
+                                <label for="overall2">2</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="overall_rating" value="3" id="overall3">
+                                <label for="overall3">3</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="overall_rating" value="4" id="overall4">
+                                <label for="overall4">4</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="overall_rating" value="5" id="overall5">
+                                <label for="overall5">5</label>
+                            </div>
+                        </div>
+                        <div class="rating-labels">
+                            <span>Poor</span>
+                            <span>Excellent</span>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            What did you love most about the course? <span class="required">*</span>
+                        </label>
+                        <textarea name="loved_most" required placeholder="Share what resonated with you..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Content Quality -->
+                <div class="section">
+                    <h2 class="section-title">Course Content</h2>
+                    
+                    <div class="question">
+                        <label class="question-label">
+                            How helpful were the audio modules? <span class="required">*</span>
+                        </label>
+                        <div class="rating-scale">
+                            <div class="rating-option">
+                                <input type="radio" name="modules_rating" value="1" id="modules1" required>
+                                <label for="modules1">1</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="modules_rating" value="2" id="modules2">
+                                <label for="modules2">2</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="modules_rating" value="3" id="modules3">
+                                <label for="modules3">3</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="modules_rating" value="4" id="modules4">
+                                <label for="modules4">4</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="modules_rating" value="5" id="modules5">
+                                <label for="modules5">5</label>
+                            </div>
+                        </div>
+                        <div class="rating-labels">
+                            <span>Not Helpful</span>
+                            <span>Very Helpful</span>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            How helpful were the guided meditations? <span class="required">*</span>
+                        </label>
+                        <div class="rating-scale">
+                            <div class="rating-option">
+                                <input type="radio" name="meditation_rating" value="1" id="meditation1" required>
+                                <label for="meditation1">1</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="meditation_rating" value="2" id="meditation2">
+                                <label for="meditation2">2</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="meditation_rating" value="3" id="meditation3">
+                                <label for="meditation3">3</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="meditation_rating" value="4" id="meditation4">
+                                <label for="meditation4">4</label>
+                            </div>
+                            <div class="rating-option">
+                                <input type="radio" name="meditation_rating" value="5" id="meditation5">
+                                <label for="meditation5">5</label>
+                            </div>
+                        </div>
+                        <div class="rating-labels">
+                            <span>Not Helpful</span>
+                            <span>Very Helpful</span>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            Which module was most impactful for you? <span class="required">*</span>
+                        </label>
+                        <select name="favorite_module" required>
+                            <option value="">Select a module...</option>
+                            <option value="module1">Module 1: Understanding Self-Love</option>
+                            <option value="module2">Module 2: Self-Awareness & Acceptance</option>
+                            <option value="module3">Module 3: Inner Child Healing</option>
+                            <option value="module4">Module 4: Positive Self-Talk</option>
+                            <option value="module5">Module 5: Setting Boundaries</option>
+                            <option value="module6">Module 6: Self-Care Rituals</option>
+                            <option value="module7">Module 7: Self-Compassion</option>
+                            <option value="module8">Module 8: Authentic Living</option>
+                        </select>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            Why was this module most impactful?
+                        </label>
+                        <textarea name="module_impact" placeholder="Tell us why this module resonated with you..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Results & Transformation -->
+                <div class="section">
+                    <h2 class="section-title">Your Transformation</h2>
+                    
+                    <div class="question">
+                        <label class="question-label">
+                            How has your relationship with yourself changed? <span class="required">*</span>
+                        </label>
+                        <textarea name="transformation" required placeholder="Describe the changes you've noticed in how you relate to yourself..."></textarea>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            What specific changes or improvements have you noticed? (Select all that apply)
+                        </label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="self_confidence">
+                                <span>Increased self-confidence</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="self_compassion">
+                                <span>More self-compassion</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="boundaries">
+                                <span>Better boundaries</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="self_care">
+                                <span>Consistent self-care practice</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="inner_peace">
+                                <span>Greater inner peace</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="authenticity">
+                                <span>Living more authentically</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="reduced_anxiety">
+                                <span>Reduced anxiety/stress</span>
+                            </label>
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="improvements" value="positive_self_talk">
+                                <span>More positive self-talk</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            Would you recommend this course to others? <span class="required">*</span>
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="definitely" required>
+                                <span>Yes, definitely!</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="probably">
+                                <span>Yes, probably</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="maybe">
+                                <span>Maybe</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="recommend" value="no">
+                                <span>No</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggestions & Additional Feedback -->
+                <div class="section">
+                    <h2 class="section-title">Help Us Improve</h2>
+                    
+                    <div class="question">
+                        <label class="question-label">
+                            What could we improve or add to make this course even better?
+                        </label>
+                        <textarea name="improvements_suggestions" placeholder="Your suggestions help us serve you better..."></textarea>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            Would you be interested in future courses from Eclipsoinati?
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="future_interest" value="yes">
+                                <span>Yes! Keep me updated</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="future_interest" value="maybe">
+                                <span>Maybe, depends on the topic</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="future_interest" value="no">
+                                <span>No thanks</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <label class="question-label">
+                            Any other comments or feedback?
+                        </label>
+                        <textarea name="additional_feedback" placeholder="Anything else you'd like to share..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Testimonial Permission -->
+                <div class="section">
+                    <h2 class="section-title">Share Your Story</h2>
+                    
+                    <div class="question">
+                        <label class="question-label">
+                            May we use your feedback as a testimonial? <span class="required">*</span>
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="testimonial" value="yes_name" required>
+                                <span>Yes, with my name</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="testimonial" value="yes_anonymous">
+                                <span>Yes, but keep it anonymous</span>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="testimonial" value="no">
+                                <span>No, please keep it private</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Feedback</button>
+            </form>
+        </div>
+
+        <div id="thank-you" class="thank-you">
+            <div class="icon">🙏</div>
+            <h2>Thank You!</h2>
+            <p>Your feedback has been received. We're so grateful for your time and honesty. Your journey matters to us, and your insights help us continue to serve others on their self-love path. 💖</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) {
+                        data[key].push(value);
+                    } else {
+                        data[key] = [data[key], value];
+                    }
+                } else {
+                    data[key] = value;
+                }
+            }
+            
+            console.log('Survey Data:', data);
+            
+            // Here you would typically send the data to your backend
+            // For example: fetch('/api/submit-feedback', { method: 'POST', body: JSON.stringify(data) })
+            
+            // Show thank you message
+            document.getElementById('survey-form').style.display = 'none';
+            document.getElementById('thank-you').classList.add('show');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
