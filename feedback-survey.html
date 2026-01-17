@@ -229,6 +229,24 @@
             margin: 0 auto;
         }
 
+        .dashboard-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dashboard-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 30px 20px;
@@ -568,40 +586,84 @@
             <div class="icon">🙏</div>
             <h2>Thank You!</h2>
             <p>Your feedback has been received. We're so grateful for your time and honesty. Your journey matters to us, and your insights help us continue to serve others on their self-love path. 💖</p>
+            <a href="dashboard.html" class="dashboard-btn">← Back to Dashboard</a>
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
     <script>
-        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqHAkHHFpyRc4egDn3aafZcvfR0qhVTAw",
+            authDomain: "self-love-course.firebaseapp.com",
+            projectId: "self-love-course",
+            storageBucket: "self-love-course.firebasestorage.app",
+            messagingSenderId: "115196735828",
+            appId: "1:115196735828:web:426f660bd8b034fd89d8c1",
+            measurementId: "G-WTPVKYL5X0"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // Check authentication
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                window.location.href = 'auth.html';
+            }
+        });
+
+        document.getElementById('feedbackForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {};
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
             
-            for (let [key, value] of formData.entries()) {
-                if (data[key]) {
-                    if (Array.isArray(data[key])) {
-                        data[key].push(value);
+            try {
+                // Collect form data
+                const formData = new FormData(this);
+                const data = {
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    userId: auth.currentUser ? auth.currentUser.uid : 'anonymous',
+                    userEmail: auth.currentUser ? auth.currentUser.email : formData.get('email')
+                };
+                
+                // Process all form fields
+                for (let [key, value] of formData.entries()) {
+                    // Handle checkboxes (multiple values for same key)
+                    if (key === 'improvements') {
+                        if (!data.improvements) {
+                            data.improvements = [];
+                        }
+                        data.improvements.push(value);
                     } else {
-                        data[key] = [data[key], value];
+                        data[key] = value;
                     }
-                } else {
-                    data[key] = value;
                 }
+                
+                // Save to Firestore
+                await db.collection('feedback').add(data);
+                
+                console.log('Feedback submitted successfully!');
+                
+                // Show thank you message
+                document.getElementById('survey-form').style.display = 'none';
+                document.getElementById('thank-you').classList.add('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                alert('There was an error submitting your feedback. Please try again.');
+                submitBtn.textContent = 'Submit Feedback';
+                submitBtn.disabled = false;
             }
-            
-            console.log('Survey Data:', data);
-            
-            // Here you would typically send the data to your backend
-            // For example: fetch('/api/submit-feedback', { method: 'POST', body: JSON.stringify(data) })
-            
-            // Show thank you message
-            document.getElementById('survey-form').style.display = 'none';
-            document.getElementById('thank-you').classList.add('show');
-            
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
