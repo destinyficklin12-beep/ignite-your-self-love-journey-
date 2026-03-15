@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast - Self-Love: The Journey Within</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e91e63;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .podcast-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .subscribe-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .subscribe-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .subscribe-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        .subscribe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Episodes Grid */
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .episode-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .episode-video {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .episode-video iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .episode-content {
+            padding: 1.5rem;
+        }
+
+        .episode-number {
+            color: #e91e63;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .episode-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .episode-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .episode-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Coming Soon Badge */
+        .coming-soon {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .episodes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">🏠 Home</a></li>
+            <li><a href="course.html">📚 Course</a></li>
+            <li><a href="podcast.html">🎙️ Podcast</a></li>
+            <li><a href="dashboard.html">📊 Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="podcast-emoji">🎙️</div>
+        <h1>welcome to the unveiled</h1>
+        <p>Season 1 - (self love) The Journey Within 💖</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Subscribe Section -->
+        <div class="subscribe-section">
+            <h2>Never Miss an Episode!</h2>
+            <p>New episodes every Monday at 9:00 AM</p>
+            
+            <!-- RSS.com Embedded Player -->
+            <div style="max-width: 700px; margin: 2rem auto;">
+                <iframe 
+                    src="https://rss.com/podcasts/welcome-to-the-unveiled-introduction/embed/" 
+                    style="width: 100%; height: 200px; border: none; border-radius: 10px;"
+                    title="welcome to the unveiled podcast player">
+                </iframe>
+            </div>
+            
+            <div class="subscribe-buttons">
+                <a href="https://www.youtube.com/@Eclipsoinati?sub_confirmation=1" class="subscribe-btn" target="_blank">📺 Subscribe on YouTube</a>
+                <a href="https://open.spotify.com/show/1Nd29p5rkdyUclHi1n3BYa" class="subscribe-btn" target="_blank">🎵 Listen on Spotify</a>
+                <a href="https://podcasts.apple.com/podcast/id1875995102" class="subscribe-btn" target="_blank">🎧 Apple Podcasts</a>
+                <a href="https://rss.com/podcasts/welcome-to-the-unveiled-introduction/" class="subscribe-btn" target="_blank">🎙️ RSS.com</a>
+                <a href="https://link.me/eclipsoinati" class="subscribe-btn" target="_blank">🔗 All My Links</a>
+            </div>
+        </div>
+
+        <!-- Latest Episodes -->
+        <div class="section-header">
+            <h2>Latest Episodes</h2>
+            <p>Deep conversations about self-love, healing, and personal growth</p>
+        </div>
+
+        <div class="episodes-grid">
+            <!-- Episode 1: Trailer -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <!-- Replace VIDEO_ID with your actual YouTube video ID -->
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">TRAILER</div>
+                    <h3 class="episode-title">Self-Love: The Journey Within</h3>
+                    <p class="episode-description">
+                        Welcome to the podcast! Learn what this journey is all about and what you can expect from each episode.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 3 min</span>
+                        <span>📅 March 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 2 -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">EPISODE 1</div>
+                    <h3 class="episode-title">Why I Created This Self-Love Course</h3>
+                    <p class="episode-description">
+                        My personal journey and the inspiration behind creating this transformative self-love program.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 18 min</span>
+                        <span>📅 March 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 3 -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <iframe src="https://www.youtube.com/embed/ABC123XYZ"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">EPISODE 2</div>
+                    <h3 class="episode-title">5 Signs You're Not Loving Yourself</h3>
+                    <p class="episode-description">
+                        Discover the key indicators that self-love might be missing from your life and what to do about it.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 16 min</span>
+                        <span>📅 March 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 4 -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">EPISODE 3</div>
+                    <h3 class="episode-title">The Truth About Narcissistic Abuse Recovery</h3>
+                    <p class="episode-description">
+                        Understanding narcissistic abuse and the real path to healing and reclaiming yourself.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 22 min</span>
+                        <span>📅 March 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 5 -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">EPISODE 4</div>
+                    <h3 class="episode-title">Student Testimonial Story</h3>
+                    <p class="episode-description">
+                        A real transformation story from someone who went through the self-love journey.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 17 min</span>
+                        <span>📅 April 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 6 - Coming Soon Example -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">EPISODE 5</div>
+                    <h3 class="episode-title">The Self-Love Assessment Explained <span class="coming-soon">COMING SOON</span></h3>
+                    <p class="episode-description">
+                        Learn how to use the self-love assessment tool to understand where you are on your journey.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 15 min</span>
+                        <span>📅 April 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more episodes as you publish them! -->
+
+        </div>
+
+        <!-- About the Podcast Section -->
+        <div class="subscribe-section" style="margin-top: 4rem;">
+            <h2>About the Podcast</h2>
+            <p style="max-width: 700px; margin: 1rem auto; text-align: left; color: #666;">
+                <strong>welcome to the unveiled : Season 1 - (self love) The Journey Within 💖</strong> is your weekly companion 
+                on the path to genuine self-love and healing. Each episode dives deep into topics like trauma recovery, 
+                boundaries, self-compassion, inner child healing, and authentic living. Whether you're just beginning your 
+                self-love journey or deepening your practice, this podcast offers practical wisdom, personal stories, 
+                and transformative insights.
+            </p>
+            <p style="max-width: 700px; margin: 1rem auto; text-align: left; color: #666;">
+                Hosted by <strong>Eclipsoinati</strong>, creator of the Ignite Your Self-Love Journey course. 
+                New episodes drop every Monday at 9:00 AM.
+            </p>
+            <p style="max-width: 700px; margin: 1rem auto; text-align: left; color: #666;">
+                <strong>Categories:</strong> Self-Improvement | Spirituality
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>welcome to the unveiled : Season 1 - (self love) The Journey Within 💖</strong></p>
+        <p>Hosted by Eclipsoinati</p>
+        <p>© 2025 All rights reserved</p>
+    </footer>
+
+    <script>
+        // Optional: Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
