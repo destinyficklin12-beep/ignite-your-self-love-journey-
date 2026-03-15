@@ -203,8 +203,29 @@
             }
         }
     </style>
+    @media (max-width: 768px) {
+    nav {
+        padding: 10px 20px !important;
+    }
+    nav ul {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+}
 </head>
-<body>
+    <body>
+    <!-- Navigation Bar -->
+    <nav style="position: fixed; top: 0; left: 0; right: 0; background: rgba(26, 26, 26, 0.95); backdrop-filter: blur(10px); padding: 15px 40px; z-index: 1000; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+        <div style="font-size: 20px; font-weight: bold; color: white;">💖 Self-Love Journey</div>
+        <ul style="list-style: none; display: flex; gap: 30px; margin: 0;">
+            <li><a href="index.html" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">Home</a></li>
+            <li><a href="podcast.html" style="color: white; text-decoration: none; font-weight: 500; transition: color 0.3s;">🎙️ Podcast</a></li>
+            <li><a href="auth.html" style="color: #ff6b9d; text-decoration: none; font-weight: 600; background: white; padding: 8px 20px; border-radius: 20px; transition: all 0.3s;">Get Started</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
