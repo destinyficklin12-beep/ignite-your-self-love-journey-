@@ -51,30 +51,28 @@
         /* Header */
         .header {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 4rem 2rem 3rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
+        .podcast-emoji {
+            font-size: 80px;
+            margin-bottom: 1rem;
+        }
+
         .header h1 {
             font-size: 3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             font-weight: 700;
         }
 
         .header p {
             font-size: 1.3rem;
             opacity: 0.95;
-            max-width: 600px;
-            margin: 0 auto;
         }
 
-        .podcast-emoji {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Main Content */
+        /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -83,17 +81,24 @@
 
         /* Subscribe Section */
         .subscribe-section {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             text-align: center;
+            margin-bottom: 4rem;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
         .subscribe-section h2 {
             color: #667eea;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subscribe-section > p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         .subscribe-buttons {
@@ -101,49 +106,47 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 1.5rem;
         }
 
         .subscribe-btn {
-            padding: 0.8rem 2rem;
+            padding: 0.9rem 1.8rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: inline-block;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .subscribe-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
         /* Episodes Grid */
         .episodes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
 
         .episode-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .episode-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .episode-video {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
         }
@@ -166,67 +169,66 @@
             font-weight: 700;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .episode-title {
             font-size: 1.3rem;
             color: #333;
             margin-bottom: 0.8rem;
-            font-weight: 600;
+            line-height: 1.4;
         }
 
         .episode-description {
             color: #666;
-            font-size: 0.95rem;
+            margin-bottom: 1rem;
             line-height: 1.6;
         }
 
         .episode-meta {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-            font-size: 0.85rem;
+            gap: 1.5rem;
+            font-size: 0.9rem;
             color: #999;
         }
 
-        /* Coming Soon Badge */
-        .coming-soon {
-            display: inline-block;
-            background: #ffd700;
-            color: #333;
-            padding: 0.3rem 0.8rem;
+        /* About Section */
+        .about-section {
+            background: white;
+            padding: 3rem 2rem;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-left: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-top: 4rem;
         }
 
-        /* Section Headers */
-        .section-header {
+        .about-section h2 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
             text-align: center;
-            margin-bottom: 2rem;
         }
 
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header p {
+        .about-section p {
             color: #666;
-            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-section strong {
+            color: #333;
         }
 
         /* Footer */
         footer {
-            background: #333;
-            color: white;
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            color: #666;
             margin-top: 4rem;
+        }
+
+        footer p {
+            margin: 0.3rem 0;
         }
 
         /* Responsive */
@@ -236,19 +238,19 @@
             }
 
             .header p {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
             .episodes-grid {
                 grid-template-columns: 1fr;
             }
 
-            nav ul {
-                gap: 1rem;
+            .subscribe-buttons {
+                flex-direction: column;
             }
 
-            .section-header h2 {
-                font-size: 1.8rem;
+            .subscribe-btn {
+                width: 100%;
             }
         }
     </style>
@@ -271,7 +273,7 @@
         <p>Season 1 - (self love) The Journey Within 💖</p>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Container -->
     <div class="container">
         <!-- Subscribe Section -->
         <div class="subscribe-section">
@@ -287,17 +289,12 @@
             </div>
         </div>
 
-        <!-- Latest Episodes -->
-        <div class="section-header">
-            <h2>Latest Episodes</h2>
-            <p>Deep conversations about self-love, healing, and personal growth</p>
-        </div>
-
+        <!-- Episodes Grid -->
         <div class="episodes-grid">
+            
             <!-- Episode 1: Trailer -->
             <div class="episode-card">
                 <div class="episode-video">
-                    <!-- Replace VIDEO_ID with your actual YouTube video ID -->
                     <iframe 
                         src="https://www.youtube.com/embed/0yqzoRmaCKw" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -308,7 +305,7 @@
                     <div class="episode-number">TRAILER</div>
                     <h3 class="episode-title">Self-Love: The Journey Within</h3>
                     <p class="episode-description">
-                        Welcome to the podcast! Learn what this journey is all about and what you can expect from each episode.
+                        Welcome to the podcast! Learn what this journey is all about and what you can expect from each transformative episode.
                     </p>
                     <div class="episode-meta">
                         <span>⏱️ 3 min</span>
@@ -365,47 +362,25 @@
             <div class="episode-card">
                 <div class="episode-video">
                     <iframe 
-                        src="https://www.youtube.com/embed/K0YOsSJM78Q" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="episode-content">
-                    <div class="episode-number">EPISODE 3</div>
-                    <h3 class="episode-title">How to Set Boundaries Without Feeling Guilty</h3>
-                    <p class="episode-description">
-                        Learn practical strategies for setting healthy boundaries while honoring your needs and maintaining peace of mind.
-                    </p>
-                    <div class="episode-meta">
-                        <span>⏱️ 22 min</span>
-                        <span>📅 March 2025</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Episode 5 -->
-            <div class="episode-card">
-                <div class="episode-video">
-                    <iframe 
                         src="https://www.youtube.com/embed/yRyOCJ_0HNU" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="episode-content">
-                    <div class="episode-number">EPISODE 4</div>
-                    <h3 class="episode-title">Student Testimonial Story</h3>
+                    <div class="episode-number">EPISODE 3</div>
+                    <h3 class="episode-title">Understanding Self-Love: What It REALLY Means</h3>
                     <p class="episode-description">
-                        A real transformation story from someone who went through the self-love journey.
+                        Go beyond the surface and discover what authentic self-love truly is—and what it's not.
                     </p>
                     <div class="episode-meta">
-                        <span>⏱️ 17 min</span>
+                        <span>⏱️ 20 min</span>
                         <span>📅 April 2025</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Episode 6 - Coming Soon Example -->
+            <!-- Episode 5 -->
             <div class="episode-card">
                 <div class="episode-video">
                     <iframe 
@@ -415,21 +390,19 @@
                     </iframe>
                 </div>
                 <div class="episode-content">
-                    <div class="episode-number">EPISODE 5</div>
-                    <h3 class="episode-title">The Self-Love Assessment Explained <span class="coming-soon">COMING SOON</span></h3>
+                    <div class="episode-number">EPISODE 4</div>
+                    <h3 class="episode-title">How to Become More Self-Aware</h3>
                     <p class="episode-description">
-                        Learn how to use the self-love assessment tool to understand where you are on your journey.
+                        Develop the foundational skill of self-awareness to understand yourself deeply and make conscious choices.
                     </p>
                     <div class="episode-meta">
-                        <span>⏱️ 15 min</span>
+                        <span>⏱️ 22 min</span>
                         <span>📅 April 2025</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Add more episodes as you publish them! -->
-
-            <!-- Episode 7 -->
+            <!-- Episode 6 -->
             <div class="episode-card">
                 <div class="episode-video">
                     <iframe 
@@ -439,14 +412,36 @@
                     </iframe>
                 </div>
                 <div class="episode-content">
-                    <div class="episode-number">EPISODE 7</div>
-                    <h3 class="episode-title">New Episode</h3>
+                    <div class="episode-number">EPISODE 5</div>
+                    <h3 class="episode-title">Self-Love Course vs Therapy: Which Do You Need?</h3>
                     <p class="episode-description">
-                        Another powerful episode on your self-love journey.
+                        Navigate the important question of whether a self-love course, therapy, or both is right for your healing journey.
                     </p>
                     <div class="episode-meta">
-                        <span>⏱️ TBD</span>
+                        <span>⏱️ 18 min</span>
                         <span>📅 April 2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 7 -->
+            <div class="episode-card">
+                <div class="episode-video">
+                    <iframe 
+                        src="https://www.youtube.com/embed/QnPb3VGqCb8" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="episode-content">
+                    <div class="episode-number">EPISODE 6</div>
+                    <h3 class="episode-title">10-Minute Guided Meditation for Inner Child Healing</h3>
+                    <p class="episode-description">
+                        A gentle, guided meditation to connect with and heal your inner child. Perfect for daily practice.
+                    </p>
+                    <div class="episode-meta">
+                        <span>⏱️ 10 min</span>
+                        <span>📅 May 2025</span>
                     </div>
                 </div>
             </div>
@@ -455,20 +450,20 @@
             <div class="episode-card">
                 <div class="episode-video">
                     <iframe 
-                        src="https://www.youtube.com/embed/GvhEKpM-Sa4" 
+                        src="https://www.youtube.com/embed/3Kd3M7F8T8w" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
                 </div>
                 <div class="episode-content">
-                    <div class="episode-number">EPISODE 8</div>
-                    <h3 class="episode-title">New Episode</h3>
+                    <div class="episode-number">EPISODE 7</div>
+                    <h3 class="episode-title">Inner Child Healing: Why Your Past Still Hurts</h3>
                     <p class="episode-description">
-                        Continuing your transformative self-love journey.
+                        Understand why childhood wounds continue to affect you as an adult and discover the path to healing them.
                     </p>
                     <div class="episode-meta">
-                        <span>⏱️ TBD</span>
-                        <span>📅 April 2025</span>
+                        <span>⏱️ 25 min</span>
+                        <span>📅 May 2025</span>
                     </div>
                 </div>
             </div>
@@ -476,20 +471,20 @@
         </div>
 
         <!-- About the Podcast Section -->
-        <div class="subscribe-section" style="margin-top: 4rem;">
+        <div class="about-section">
             <h2>About the Podcast</h2>
-            <p style="max-width: 700px; margin: 1rem auto; text-align: left; color: #666;">
+            <p>
                 <strong>welcome to the unveiled : Season 1 - (self love) The Journey Within 💖</strong> is your weekly companion 
                 on the path to genuine self-love and healing. Each episode dives deep into topics like trauma recovery, 
                 boundaries, self-compassion, inner child healing, and authentic living. Whether you're just beginning your 
                 self-love journey or deepening your practice, this podcast offers practical wisdom, personal stories, 
                 and transformative insights.
             </p>
-            <p style="max-width: 700px; margin: 1rem auto; text-align: left; color: #666;">
+            <p>
                 Hosted by <strong>Eclipsoinati</strong>, creator of the Ignite Your Self-Love Journey course. 
                 New episodes drop every Monday at 9:00 AM.
             </p>
-            <p style="max-width: 700px; margin: 1rem auto; text-align: left; color: #666;">
+            <p>
                 <strong>Categories:</strong> Self-Improvement | Spirituality
             </p>
         </div>
@@ -501,18 +496,5 @@
         <p>Hosted by Eclipsoinati</p>
         <p>© 2025 All rights reserved</p>
     </footer>
-
-    <script>
-        // Optional: Add smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
